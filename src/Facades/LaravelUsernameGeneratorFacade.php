@@ -1,11 +1,12 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator;
+namespace Luilliarcec\LaravelUsernameGenerator\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Luilliarcec\LaravelUsernameGenerator\Support\LaravelUsernameGenerator;
 
 /**
- * @see \Luilliarcec\LaravelUsernameGenerator\Skeleton\SkeletonClass
+ * @see LaravelUsernameGenerator
  */
 class LaravelUsernameGeneratorFacade extends Facade
 {
@@ -16,6 +17,6 @@ class LaravelUsernameGeneratorFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-username-generator';
+        return 'UsernameGenerator';
     }
 }
