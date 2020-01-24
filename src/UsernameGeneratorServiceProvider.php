@@ -2,7 +2,6 @@
 
 namespace Luilliarcec\LaravelUsernameGenerator;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\ServiceProvider;
 use Luilliarcec\LaravelUsernameGenerator\Support\LaravelUsernameGenerator;
 
