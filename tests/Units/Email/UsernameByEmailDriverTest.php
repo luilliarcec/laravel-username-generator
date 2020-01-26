@@ -103,17 +103,4 @@ class UsernameByEmailDriverTest extends TestCase
         $username = UsernameGeneratorFacade::make('larcec@test.com');
         $this->assertEquals('larcec6', $username);
     }
-
-    /**
-     * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
-     */
-    public function get_error_with_invalid_email()
-    {
-        $this->expectException(UsernameGeneratorException::class);
-        $this->expectExceptionMessage('The value provided does not have a valid email format.');
-
-        $this->usernameGenerator->make('Luis Arce');
-        UsernameGeneratorFacade::make('Luis Arce');
-    }
 }

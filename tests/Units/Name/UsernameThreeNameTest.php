@@ -130,18 +130,4 @@ class UsernameThreeNameTest extends TestCase
         $username = UsernameGeneratorFacade::make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec3', $username);
     }
-
-    /**
-     * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
-     */
-    public function get_error_with_the_value_provided_exceeds_four_words()
-    {
-        $this->expectException(UsernameGeneratorException::class);
-        $this->expectExceptionMessage('Too many values have been provided to the username generator,
-                    the candidate words provided are: 5, the number of words supported is: 4.');
-
-        $this->usernameGenerator->make('Luis Andrés Arce Cárdenas Maple');
-        UsernameGeneratorFacade::make('Luis Andrés Arce Cárdenas Maple');
-    }
 }

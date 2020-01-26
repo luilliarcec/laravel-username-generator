@@ -44,7 +44,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Luilliarcec\\LaravelUsernameGenerator\\LaravelUsernameGeneratorServiceProvider"
+                "Luilliarcec\\LaravelUsernameGenerator\\UsernameGeneratorServiceProvider"
             ],
             "aliases": {
                 "LaravelUsernameGenerator": "Luilliarcec\\LaravelUsernameGenerator\\Facades\\UsernameGeneratorFacade"
