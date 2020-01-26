@@ -7,7 +7,7 @@ return [
     | Driver generator
     |--------------------------------------------------------------------------
     |
-    | generate user names by person names or by emails (name or email)
+    | Generate user names by person names or by emails (name or email)
     |
     */
 
