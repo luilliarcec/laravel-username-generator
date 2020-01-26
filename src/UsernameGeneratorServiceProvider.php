@@ -3,7 +3,7 @@
 namespace Luilliarcec\LaravelUsernameGenerator;
 
 use Illuminate\Support\ServiceProvider;
-use Luilliarcec\LaravelUsernameGenerator\Support\LaravelUsernameGenerator;
+use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 
 class UsernameGeneratorServiceProvider extends ServiceProvider
 {
@@ -35,7 +35,7 @@ class UsernameGeneratorServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('UsernameGenerator', function () {
-            return new LaravelUsernameGenerator;
+            return new UsernameGenerator;
         });
     }
 }

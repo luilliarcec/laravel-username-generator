@@ -41,7 +41,13 @@ class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
+        /** Config */
         $app['config']->set('laravel-username-generator.column', 'username');
+        $app['config']->set('laravel-username-generator.case', 'lower');
+        $app['config']->set('laravel-username-generator.driver', 'name');
+        $app['config']->set('laravel-username-generator.model', '\Luilliarcec\LaravelUsernameGenerator\Models\User');
+
+        /** Database */
         $app['config']->set('database.default', 'testdb');
         $app['config']->set('database.connections.testdb', [
             'driver' => 'sqlite',
