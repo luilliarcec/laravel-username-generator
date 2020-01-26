@@ -13,28 +13,28 @@ class UsernameGenerator
      *
      * @var \Illuminate\Config\Repository
      */
-    private $model;
+    protected $model;
 
     /**
      * Column for Username in database
      *
      * @var \Illuminate\Config\Repository
      */
-    private $column;
+    protected $column;
 
     /**
      * Case string lower or upper
      *
      * @var \Illuminate\Config\Repository
      */
-    private $case;
+    protected $case;
 
     /**
      * Driver generator name or email
      *
      * @var \Illuminate\Config\Repository
      */
-    private $driver;
+    protected $driver;
 
     /**
      * UsernameGenerator constructor.
@@ -112,7 +112,7 @@ class UsernameGenerator
      * @return mixed
      * @throws UsernameGeneratorException
      */
-    private function driverEmail($name)
+    protected function driverEmail($name)
     {
         if (!filter_var($name, FILTER_VALIDATE_EMAIL)) {
             throw new UsernameGeneratorException(
@@ -130,7 +130,7 @@ class UsernameGenerator
      * @param $name
      * @return mixed
      */
-    private function makeUsernameWithOneName($name)
+    protected function makeUsernameWithOneName($name)
     {
         return $name;
     }
@@ -142,7 +142,7 @@ class UsernameGenerator
      * @param $lastname
      * @return string
      */
-    private function makeUsernameWithTwoName($name, $lastname)
+    protected function makeUsernameWithTwoName($name, $lastname)
     {
         $name_array = explode(' ', $name);
 
@@ -158,7 +158,7 @@ class UsernameGenerator
      * @param $lastname
      * @return string
      */
-    private function makeUsernameWithThreeName($name, $lastname)
+    protected function makeUsernameWithThreeName($name, $lastname)
     {
         $name_array = explode(' ', $name);
         $lastname_array = explode(' ', $lastname);
@@ -183,7 +183,7 @@ class UsernameGenerator
      * @param $lastname
      * @return string
      */
-    private function makeUsernameWithFullName($name, $lastname)
+    protected function makeUsernameWithFullName($name, $lastname)
     {
         $name_array = explode(' ', $name);
 
@@ -207,7 +207,7 @@ class UsernameGenerator
      * @return int|string
      * @throws UsernameGeneratorException
      */
-    private function getPrefixUsername(string $username)
+    protected function getPrefixUsername(string $username)
     {
         $len = strlen($username);
         $users = $this->findDuplicateUsername($username);
@@ -240,7 +240,7 @@ class UsernameGenerator
      * @param array $firstname
      * @return mixed
      */
-    private function getFirstLetterName(array $firstname)
+    protected function getFirstLetterName(array $firstname)
     {
         $firstname_letters = str_split($firstname[0]);
         return $firstname_letters[0];
@@ -252,7 +252,7 @@ class UsernameGenerator
      * @param array $lastname
      * @return mixed
      */
-    private function getFirstSurname(array $lastname)
+    protected function getFirstSurname(array $lastname)
     {
         return $lastname[0];
     }
@@ -263,7 +263,7 @@ class UsernameGenerator
      * @param array $lastname
      * @return string
      */
-    private function getFirstLetterSecondLastName(array $lastname)
+    protected function getFirstLetterSecondLastName(array $lastname)
     {
         $lastsurname_letters = str_split($lastname[1]);
         return $lastsurname_letters[0];
@@ -276,7 +276,7 @@ class UsernameGenerator
      * @param string|null $lastname
      * @return int
      */
-    private function countName($name, $lastname = null)
+    protected function countName($name, $lastname = null)
     {
         return $lastname ?
             count(explode(' ', $name . ' ' . $lastname)) :
@@ -290,7 +290,7 @@ class UsernameGenerator
      * @return mixed
      * @throws UsernameGeneratorException
      */
-    private function findDuplicateUsername($username)
+    protected function findDuplicateUsername($username)
     {
         $model = $this->getModel($this->model);
 
@@ -308,7 +308,7 @@ class UsernameGenerator
      * @return mixed
      * @throws UsernameGeneratorException
      */
-    private function getModel($model)
+    protected function getModel($model)
     {
         try {
             return new $model;
@@ -385,7 +385,7 @@ class UsernameGenerator
      * @param $lastname
      * @throws UsernameGeneratorException
      */
-    private function validate($name, $lastname)
+    protected function validate($name, $lastname)
     {
         $countName = count(explode(' ', $name));
         $countLastName = $lastname == null ? 0 : count(explode(' ', $lastname));
