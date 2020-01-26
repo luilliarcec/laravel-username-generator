@@ -1,4 +1,4 @@
-# Very short description of the package
+# Laravel Username Generator
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg?style=flat-square)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
 [![Build Status](https://img.shields.io/travis/luilliarcec/laravel-username-generator/master.svg?style=flat-square)](https://travis-ci.org/luilliarcec/laravel-username-generator)
