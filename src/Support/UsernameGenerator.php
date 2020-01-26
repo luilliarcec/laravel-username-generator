@@ -55,27 +55,11 @@ class UsernameGenerator
      */
     public function make($name, $lastname = null)
     {
-        if (!in_array($this->driver, ['name', 'email'])) {
-            throw new UsernameGeneratorException("Driver not supported");
-        }
+        $this->validate($name, $lastname);
 
-        $username = $this->driver == 'name' ?
-            $this->driverName($name, $lastname) :
-            $this->driverEmail($name);
+        $username = $this->getDriver($name, $lastname);
 
-
-        switch ($this->case) {
-            case 'lower':
-            {
-                $username = Str::lower($username);
-                break;
-            }
-            case 'upper':
-            {
-                $username = Str::upper($username);
-                break;
-            }
-        }
+        $username = $this->getCase($username);
 
         $prefix = $this->getPrefixUsername($username);
 
@@ -179,12 +163,17 @@ class UsernameGenerator
         $name_array = explode(' ', $name);
         $lastname_array = explode(' ', $lastname);
 
+        if (count($name_array) == 3) {
+            $lastname_array = array_slice($name_array, 1);
+        }
+
         $firstLetter = $this->getFirstLetterName($name_array);
         $firstLastname = $this->getFirstSurname($lastname_array);
 
-        return count($lastname_array) == 2 ?
-            ($firstLetter . $firstLastname . $this->getFirstLetterSecondLastName($lastname_array)) :
-            ($firstLetter . $firstLastname);
+        $firstLetterSecondSurname = count($lastname_array) == 2 ?
+            $this->getFirstLetterSecondLastName($lastname_array) : '';
+
+        return ($firstLetter . $firstLastname . $firstLetterSecondSurname);
     }
 
     /**
@@ -326,6 +315,102 @@ class UsernameGenerator
         } catch (Error $e) {
             throw new UsernameGeneratorException(
                 "Unable to instantiate the model [$model]: " . $e->getMessage(), null, $e
+            );
+        }
+    }
+
+    /**
+     * Get the username according to the driver
+     *
+     * @param $name
+     * @param $lastname
+     * @return mixed|string
+     * @throws UsernameGeneratorException
+     */
+    protected function getDriver($name, $lastname)
+    {
+        switch ($this->driver) {
+            case 'name':
+            {
+                $username = $this->driverName($name, $lastname);
+                break;
+            }
+            case 'email':
+            {
+                $username = $this->driverEmail($name);
+                break;
+            }
+            default:
+            {
+                throw new UsernameGeneratorException("Driver not supported");
+            }
+        }
+
+        return $username;
+    }
+
+    /**
+     * Get parsed by the case
+     *
+     * @param string $username
+     * @return string
+     * @throws UsernameGeneratorException
+     */
+    protected function getCase(string $username): string
+    {
+        switch ($this->case) {
+            case 'lower':
+            {
+                $username = Str::lower($username);
+                break;
+            }
+            case 'upper':
+            {
+                $username = Str::upper($username);
+                break;
+            }
+            default:
+            {
+                throw new UsernameGeneratorException("Case not supported");
+            }
+        }
+
+        return $username;
+    }
+
+    /**
+     * Valid that the general conditions of the package are met
+     *
+     * @param $name
+     * @param $lastname
+     * @throws UsernameGeneratorException
+     */
+    private function validate($name, $lastname)
+    {
+        $countName = count(explode(' ', $name));
+        $countLastName = $lastname == null ? 0 : count(explode(' ', $lastname));
+
+        if ($name == null) {
+            throw new UsernameGeneratorException(
+                "The name cannot be null"
+            );
+        }
+
+        if ($countName == 4 && $countLastName > 0) {
+            throw new UsernameGeneratorException(
+                "The lastname parameter is not supported when the name has fullname (four words)"
+            );
+        }
+
+        if (($countName == 1 || $countName == 2) && $countLastName > 2) {
+            throw new UsernameGeneratorException(
+                "Only one or two lastname are supported"
+            );
+        }
+
+        if ($countName == 3 && $countLastName > 0) {
+            throw new UsernameGeneratorException(
+                "The lastname parameter is not supported when the name has three words"
             );
         }
     }

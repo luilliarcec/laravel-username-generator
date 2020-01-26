@@ -44,10 +44,16 @@ class UsernameThreeNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec', $username);
 
+        $username = $this->usernameGenerator->make('Luis Arce Cárdenas');
+        $this->assertEquals('larcec', $username);
+
         $username = UsernameGeneratorFacade::make('Luis Andrés', 'Arce');
         $this->assertEquals('larce', $username);
 
         $username = UsernameGeneratorFacade::make('Luis', 'Arce Cárdenas');
+        $this->assertEquals('larcec', $username);
+
+        $username = UsernameGeneratorFacade::make('Luis Arce Cárdenas');
         $this->assertEquals('larcec', $username);
     }
 
