@@ -1,9 +1,9 @@
 # Laravel Username Generator
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg?style=flat-square)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
-[![Build Status](https://img.shields.io/travis/luilliarcec/laravel-username-generator/master.svg?style=flat-square)](https://travis-ci.org/luilliarcec/laravel-username-generator)
-[![Quality Score](https://img.shields.io/scrutinizer/g/luilliarcec/laravel-username-generator.svg?style=flat-square)](https://scrutinizer-ci.com/g/luilliarcec/laravel-username-generator)
-[![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-username-generator.svg?style=flat-square)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
+[![Build Status](https://travis-ci.com/luilliarcec/laravel-username-generator.svg?branch=master)](https://travis-ci.com/luilliarcec/laravel-username-generator)
+[![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
+[![GitHub license](https://img.shields.io/github/license/luilliarcec/laravel-username-generator)](https://github.com/luilliarcec/laravel-username-generator/blob/develop/LICENSE.md)
 
 Laravel Username Generator is a package that allows the versatile generation of user names, 
 has a simple integration with Laravel.
