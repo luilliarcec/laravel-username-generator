@@ -1,9 +1,12 @@
 {
     "name": "luilliarcec/laravel-username-generator",
-    "description": "Generate user name from name, email or random.",
+    "description": "Laravel Username Generator is a package that allows the versatile generation of user names, has a simple integration with Laravel.",
     "keywords": [
         "luilliarcec",
-        "laravel-username-generator"
+        "laravel-username-generator",
+        "laravel",
+        "username",
+        "generator"
     ],
     "homepage": "https://github.com/luilliarcec/laravel-username-generator",
     "license": "MIT",
@@ -16,7 +19,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "illuminate/support": "^6.0"
     },
     "require-dev": {
@@ -36,7 +39,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true
