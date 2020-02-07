@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
 [![Build Status](https://travis-ci.com/luilliarcec/laravel-username-generator.svg?branch=master)](https://travis-ci.com/luilliarcec/laravel-username-generator)
-[![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
+[![Total Downloads](https://poser.pugx.org/luilliarcec/laravel-username-generator/downloads)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
 [![GitHub license](https://img.shields.io/github/license/luilliarcec/laravel-username-generator)](https://github.com/luilliarcec/laravel-username-generator/blob/develop/LICENSE.md)
 
 Laravel Username Generator is a package that allows the versatile generation of user names, 
