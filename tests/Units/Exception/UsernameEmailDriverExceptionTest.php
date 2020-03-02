@@ -5,7 +5,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
@@ -48,6 +48,6 @@ class UsernameEmailDriverExceptionTest extends TestCase
         $this->expectExceptionMessage('The value provided does not have a valid email format.');
 
         $this->usernameGenerator->make('Luis Arce');
-        UsernameGeneratorFacade::make('Luis Arce');
+        Username::make('Luis Arce');
     }
 }

@@ -104,8 +104,7 @@ class UsernameGenerator
             default:
             {
                 throw new UsernameGeneratorException(
-                    "Too many values have been provided to the username generator,
-                    the candidate words provided are: {$words}, the number of words supported is: 4."
+                    "Too many values have been provided to the username generator, the candidate words provided are: {$words}, the number of words supported is: 4."
                 );
             }
         }

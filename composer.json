@@ -49,7 +49,7 @@
                 "Luilliarcec\\LaravelUsernameGenerator\\UsernameGeneratorServiceProvider"
             ],
             "aliases": {
-                "LaravelUsernameGenerator": "Luilliarcec\\LaravelUsernameGenerator\\Facades\\UsernameGeneratorFacade"
+                "Username": "Luilliarcec\\LaravelUsernameGenerator\\Facades\\Username"
             }
         }
     }

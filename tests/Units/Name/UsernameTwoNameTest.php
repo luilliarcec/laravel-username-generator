@@ -5,7 +5,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Name;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
@@ -44,10 +44,10 @@ class UsernameTwoNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis', 'Arce');
         $this->assertEquals('larce', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Arce');
+        $username = Username::make('Luis Arce');
         $this->assertEquals('larce', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis', 'Arce');
+        $username = Username::make('Luis', 'Arce');
         $this->assertEquals('larce', $username);
     }
 
@@ -73,10 +73,10 @@ class UsernameTwoNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis', 'Arce');
         $this->assertEquals('larce', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Arce');
+        $username = Username::make('Luis Arce');
         $this->assertEquals('larce', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis', 'Arce');
+        $username = Username::make('Luis', 'Arce');
         $this->assertEquals('larce', $username);
     }
 
@@ -102,10 +102,10 @@ class UsernameTwoNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis', 'Arce');
         $this->assertEquals('larce6', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Arce');
+        $username = Username::make('Luis Arce');
         $this->assertEquals('larce6', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis', 'Arce');
+        $username = Username::make('Luis', 'Arce');
         $this->assertEquals('larce6', $username);
     }
 }
