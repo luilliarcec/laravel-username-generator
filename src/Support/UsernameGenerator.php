@@ -77,9 +77,7 @@ class UsernameGenerator
     protected function driverName($name, $lastname)
     {
         if (filter_var($name, FILTER_VALIDATE_EMAIL)) {
-            throw new UsernameGeneratorException(
-                "Use the email driver, to generate a username from the email."
-            );
+            throw new UsernameGeneratorException("Use the email driver, to generate a username from the email.");
         }
 
         $words = $this->countName($name, $lastname);
@@ -91,7 +89,7 @@ class UsernameGenerator
             }
             case 2:
             {
-                return $username = $this->makeUsernameWithTwoName($name, $lastname);
+                return $this->makeUsernameWithTwoName($name, $lastname);
             }
             case 3:
             {
@@ -103,9 +101,7 @@ class UsernameGenerator
             }
             default:
             {
-                throw new UsernameGeneratorException(
-                    "Too many values have been provided to the username generator, the candidate words provided are: {$words}, the number of words supported is: 4."
-                );
+                throw new UsernameGeneratorException("Too many values have been provided to the username generator, the candidate words provided are: {$words}, the number of words supported is: 4.");
             }
         }
     }
@@ -309,7 +305,7 @@ class UsernameGenerator
     /**
      * Returns an instance of the model in its configuration file
      *
-     * @param $model
+     * @param \Illuminate\Config\Repository $model
      * @return mixed
      * @throws UsernameGeneratorException
      */
@@ -318,9 +314,7 @@ class UsernameGenerator
         try {
             return new $model;
         } catch (Error $e) {
-            throw new UsernameGeneratorException(
-                "Unable to instantiate the model [$model]: " . $e->getMessage(), null, $e
-            );
+            throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($model) . ']: ' . $e->getMessage(), null, $e);
         }
     }
 
@@ -396,27 +390,19 @@ class UsernameGenerator
         $countLastName = $lastname == null ? 0 : count(explode(' ', $lastname));
 
         if ($name == null) {
-            throw new UsernameGeneratorException(
-                "The name cannot be null"
-            );
+            throw new UsernameGeneratorException("The name cannot be null");
         }
 
         if ($countName == 4 && $countLastName > 0) {
-            throw new UsernameGeneratorException(
-                "The lastname parameter is not supported when the name has fullname (four words)"
-            );
+            throw new UsernameGeneratorException("The lastname parameter is not supported when the name has fullname (four words)");
         }
 
         if (($countName == 1 || $countName == 2) && $countLastName > 2) {
-            throw new UsernameGeneratorException(
-                "Only one or two lastname are supported"
-            );
+            throw new UsernameGeneratorException("Only one or two lastname are supported");
         }
 
         if ($countName == 3 && $countLastName > 0) {
-            throw new UsernameGeneratorException(
-                "The lastname parameter is not supported when the name has three words"
-            );
+            throw new UsernameGeneratorException("The lastname parameter is not supported when the name has three words");
         }
     }
 }
