@@ -291,11 +291,11 @@ class UsernameGenerator
     /**
      * Search for similar or repeated username
      *
-     * @param $username
+     * @param string $username
      * @return mixed
      * @throws UsernameGeneratorException
      */
-    protected function findDuplicateUsername($username)
+    protected function findDuplicateUsername(string $username)
     {
         $model = $this->getModel($this->model);
 
@@ -329,7 +329,7 @@ class UsernameGenerator
      *
      * @param $name
      * @param $lastname
-     * @return mixed|string
+     * @return string
      * @throws UsernameGeneratorException
      */
     protected function getDriver($name, $lastname)

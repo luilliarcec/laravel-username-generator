@@ -2,14 +2,17 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
-## 1.0.2 - 2020-03-02
+## v1.0.2 (2020-03-02)
 
 - Refactor rename facade
+- Refactor code quality
+- Laravel 7 compatibility
 
-## 1.0.1 - 2020-01-27
+## v1.0.1 (2020-01-27)
 
 - Change php version required
 
-## 1.0.0 - 2020-01-26
+## v1.0.0 (2020-01-26)
 
-- Initial release
+- Generate user name by name
+- Generate user name by email
