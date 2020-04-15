@@ -5,7 +5,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Name;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
@@ -40,7 +40,7 @@ class UsernameOneNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis');
         $this->assertEquals('luis', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis');
+        $username = Username::make('Luis');
         $this->assertEquals('luis', $username);
     }
 
@@ -63,7 +63,7 @@ class UsernameOneNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis');
         $this->assertEquals('luis', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis');
+        $username = Username::make('Luis');
         $this->assertEquals('luis', $username);
     }
 
@@ -86,7 +86,7 @@ class UsernameOneNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis');
         $this->assertEquals('luis6', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis');
+        $username = Username::make('Luis');
         $this->assertEquals('luis6', $username);
     }
 }

@@ -5,7 +5,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Name;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
@@ -47,13 +47,13 @@ class UsernameThreeNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis Arce Cárdenas');
         $this->assertEquals('larcec', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Andrés', 'Arce');
+        $username = Username::make('Luis Andrés', 'Arce');
         $this->assertEquals('larce', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis', 'Arce Cárdenas');
+        $username = Username::make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Arce Cárdenas');
+        $username = Username::make('Luis Arce Cárdenas');
         $this->assertEquals('larcec', $username);
     }
 
@@ -80,7 +80,7 @@ class UsernameThreeNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis Andrés', 'Arce');
         $this->assertEquals('larce', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Andrés', 'Arce');
+        $username = Username::make('Luis Andrés', 'Arce');
         $this->assertEquals('larce', $username);
 
         factory(User::class)->create([
@@ -90,7 +90,7 @@ class UsernameThreeNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis', 'Arce Cárdenas');
+        $username = Username::make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec', $username);
     }
 
@@ -117,7 +117,7 @@ class UsernameThreeNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis Andrés', 'Arce');
         $this->assertEquals('larce3', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis Andrés', 'Arce');
+        $username = Username::make('Luis Andrés', 'Arce');
         $this->assertEquals('larce3', $username);
 
         factory(User::class)->create([
@@ -127,7 +127,7 @@ class UsernameThreeNameTest extends TestCase
         $username = $this->usernameGenerator->make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec3', $username);
 
-        $username = UsernameGeneratorFacade::make('Luis', 'Arce Cárdenas');
+        $username = Username::make('Luis', 'Arce Cárdenas');
         $this->assertEquals('larcec3', $username);
     }
 }

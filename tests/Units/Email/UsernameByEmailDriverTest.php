@@ -5,7 +5,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Email;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
@@ -54,7 +54,7 @@ class UsernameByEmailDriverTest extends TestCase
         $username = $this->usernameGenerator->make('larcec@test.com');
         $this->assertEquals('larcec', $username);
 
-        $username = UsernameGeneratorFacade::make('larcec@test.com');
+        $username = Username::make('larcec@test.com');
         $this->assertEquals('larcec', $username);
     }
 
@@ -77,7 +77,7 @@ class UsernameByEmailDriverTest extends TestCase
         $username = $this->usernameGenerator->make('larcec@test.com');
         $this->assertEquals('larcec', $username);
 
-        $username = UsernameGeneratorFacade::make('larcec@test.com');
+        $username = Username::make('larcec@test.com');
         $this->assertEquals('larcec', $username);
     }
 
@@ -100,7 +100,7 @@ class UsernameByEmailDriverTest extends TestCase
         $username = $this->usernameGenerator->make('larcec@test.com');
         $this->assertEquals('larcec6', $username);
 
-        $username = UsernameGeneratorFacade::make('larcec@test.com');
+        $username = Username::make('larcec@test.com');
         $this->assertEquals('larcec6', $username);
     }
 }

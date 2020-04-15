@@ -1,8 +1,9 @@
 # Laravel Username Generator
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
-[![Build Status](https://travis-ci.com/luilliarcec/laravel-username-generator.svg?branch=master)](https://travis-ci.com/luilliarcec/laravel-username-generator)
-[![Total Downloads](https://poser.pugx.org/luilliarcec/laravel-username-generator/downloads)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
+[![Build Status](https://img.shields.io/travis/luilliarcec/laravel-username-generator/master)](https://travis-ci.org/luilliarcec/laravel-username-generator)
+[![Quality Score](https://img.shields.io/scrutinizer/g/luilliarcec/laravel-username-generator)](https://scrutinizer-ci.com/g/luilliarcec/laravel-username-generator)
+[![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-username-generator)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
 [![GitHub license](https://img.shields.io/github/license/luilliarcec/laravel-username-generator)](https://github.com/luilliarcec/laravel-username-generator/blob/develop/LICENSE.md)
 
 Laravel Username Generator is a package that allows the versatile generation of user names, 
@@ -32,13 +33,13 @@ That is all. 😀
 ## Usage
 
 You can use the exposed Facade 
-`Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade` for faster use, 
+`Luilliarcec\LaravelUsernameGenerator\Facades\Username` for faster use, 
 or use the class `Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator`
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 
-$username = UsernameGeneratorFacade::make('Luis Andrés Arce Cárdenas'); // larcec
+$username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
 ```
 
 You can change the presentation of your username to uppercase from the configuration file. 
@@ -110,9 +111,9 @@ return [
 According to the previous example, the resulting value will be
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 
-$username = UsernameGeneratorFacade::make('Luis Andrés Arce Cárdenas'); // LARCEC
+$username = Username::make('Luis Andrés Arce Cárdenas'); // LARCEC
 ```
 
 #### ¡Important!
@@ -139,9 +140,9 @@ return [
 Assume you have a user with the username `larcec`
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 
-$username = UsernameGeneratorFacade::make('Luis Andrés Arce Cárdenas'); // larcec
+$username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
 ```
 
 When using the package to generate the username, it will search thanks to Eloquent, 
@@ -150,9 +151,9 @@ in the database and will buy if that username already exists, if it exists, a pe
 The result would be as follows.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 
-$username = UsernameGeneratorFacade::make('Luciano Carlos Arce Cajamarca'); // larcec1
+$username = Username::make('Luciano Carlos Arce Cajamarca'); // larcec1
 ```
 
 Laravel Username Generator uses a convention for the creation of user names, takes the `first letter of the first name`, 
@@ -162,23 +163,23 @@ However, Laravel Username Generator is so versatile that it can receive `only 1 
 and can even use the auxiliary surname parameter to pass the `two surnames separately`, in the following ways.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 
 
 /* Names and surnames separated */
-$username = UsernameGeneratorFacade::make('Luis Andrés', 'Arce Cárdenas'); // larcec
+$username = Username::make('Luis Andrés', 'Arce Cárdenas'); // larcec
 
 /* One name and one surnames */
-$username = UsernameGeneratorFacade::make('Luis Arce'); // larce
-$username = UsernameGeneratorFacade::make('Luis', 'Arce'); // larce
+$username = Username::make('Luis Arce'); // larce
+$username = Username::make('Luis', 'Arce'); // larce
 
 /* One name and two surnames */
-$username = UsernameGeneratorFacade::make('Luis Andrés', 'Arce'); // larce
-$username = UsernameGeneratorFacade::make('Luis', 'Arce Cárdenas'); // larcec
-$username = UsernameGeneratorFacade::make('Luis Arce Cárdenas'); // larcec
+$username = Username::make('Luis Andrés', 'Arce'); // larce
+$username = Username::make('Luis', 'Arce Cárdenas'); // larcec
+$username = Username::make('Luis Arce Cárdenas'); // larcec
 
 /* Full name */
-$username = UsernameGeneratorFacade::make('Luis Andrés Arce Cárdenas'); // larcec
+$username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
 ```
 
 Keep these examples in mind, since passing a value of more or more than two names or 
@@ -188,9 +189,9 @@ Finally you can use the `email` driver, which will receive an email as the first
 and take the user's email and use it as a username.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\UsernameGeneratorFacade;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 
-$username = UsernameGeneratorFacade::make('larcec@test.com'); // larcec
+$username = Username::make('larcec@test.com'); // larcec
 ```
 
 ### Testing
