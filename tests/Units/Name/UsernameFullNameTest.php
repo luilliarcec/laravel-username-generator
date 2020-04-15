@@ -4,7 +4,6 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Name;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
@@ -27,7 +26,6 @@ class UsernameFullNameTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->usernameGenerator = new UsernameGenerator();
 
     }

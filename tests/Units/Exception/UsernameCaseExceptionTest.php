@@ -34,8 +34,7 @@ class UsernameCaseExceptionTest extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-
-        $app['config']->set('laravel-username-generator.case', 'snake');
+        $app['config']->set('laravel-username-generator.case', 'foo');
     }
 
     /**
@@ -45,9 +44,7 @@ class UsernameCaseExceptionTest extends TestCase
     public function make_lower_username()
     {
         $this->expectException(UsernameGeneratorException::class);
-        $this->expectExceptionMessage(
-            "Case not supported"
-        );
+        $this->expectExceptionMessage('Case type not supported [foo]: Method Illuminate\Support\Str::foo does not exist.');
 
         $username = $this->usernameGenerator->make('Luis');
         $this->assertEquals('luis', $username);
