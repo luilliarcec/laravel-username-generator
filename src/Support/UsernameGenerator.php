@@ -156,7 +156,7 @@ class UsernameGenerator
      */
     public function getDriver(): UsernameDriverContract
     {
-        $driver = '\Luilliarcec\LaravelUsernameGenerator\Support\Drivers\\' . Str::studly($this->driver);
+        $driver = '\Luilliarcec\LaravelUsernameGenerator\Support\Drivers\\' . Str::studly(strval($this->driver));
 
         try {
             return new $driver;
