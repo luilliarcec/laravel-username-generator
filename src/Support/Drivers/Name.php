@@ -23,17 +23,8 @@ class Name implements UsernameDriverContract
             return $name;
         }
 
-        $name_array = explode(' ', $name);
-        $lastname_array = $lastname ? explode(' ', $lastname) : [];
-
-        $count_name = count($name_array);
-
-        if ($count_name > 2) {
-            $lastname_array = array_slice($name_array, (($count_name > 4 ? 4 : $count_name) - 2), 2);
-            $name_array = array_slice($name_array, 0, 2);
-        } elseif (count($lastname_array) == 0) {
-            $lastname_array = $count_name > 1 ? [$name_array[1]] : [];
-        }
+        $lastname_array = $this->getLastnameAsArray($lastname, $name);
+        $name_array = $this->getNameAsArray($name);
 
         $first_letter = $this->getFirstLetterName($name_array);
         $first_lastname = $this->getFirstLastname($lastname_array);
@@ -103,5 +94,46 @@ class Name implements UsernameDriverContract
         if ($name == null) {
             throw new UsernameGeneratorException("The name cannot be null");
         }
+    }
+
+    /**
+     * Get valid name as array
+     *
+     * @param string $name
+     * @return array
+     */
+    protected function getNameAsArray(string $name): array
+    {
+        $name_array = explode(' ', $name);
+        $count_name = count($name_array);
+
+        if ($count_name > 2) {
+            $name_array = array_slice($name_array, 0, 2);
+        }
+
+        return $name_array;
+    }
+
+    /**
+     * Get valid lastname as array
+     *
+     * @param string $lastname
+     * @param string $name
+     * @return array
+     */
+    protected function getLastnameAsArray($lastname, $name): array
+    {
+        $name_array = explode(' ', $name);
+        $count_name = count($name_array);
+
+        $lastname_array = $lastname ? explode(' ', $lastname) : [];
+
+        if ($count_name > 2) {
+            $lastname_array = array_slice($name_array, (($count_name > 4 ? 4 : $count_name) - 2), 2);
+        } elseif (count($lastname_array) == 0) {
+            $lastname_array = $count_name > 1 ? [$name_array[1]] : [];
+        }
+
+        return $lastname_array;
     }
 }
