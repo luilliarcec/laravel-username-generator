@@ -34,8 +34,7 @@ class UsernameDriverExceptionTest extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-
-        $app['config']->set('laravel-username-generator.driver', 'fully');
+        $app['config']->set('laravel-username-generator.driver', 'random');
     }
 
     /**
@@ -45,9 +44,7 @@ class UsernameDriverExceptionTest extends TestCase
     public function make_lower_username()
     {
         $this->expectException(UsernameGeneratorException::class);
-        $this->expectExceptionMessage(
-            "Driver not supported"
-        );
+        $this->expectExceptionMessage('Driver type not supported [random]: Class \'\Luilliarcec\LaravelUsernameGenerator\Support\Drivers\Random\' not found');
 
         $username = $this->usernameGenerator->make('Luis');
         $this->assertEquals('luis', $username);

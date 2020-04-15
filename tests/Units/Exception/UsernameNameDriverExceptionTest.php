@@ -33,8 +33,19 @@ class UsernameNameDriverExceptionTest extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-
         $app['config']->set('laravel-username-generator.driver', 'name');
+    }
+
+    /**
+     * @test
+     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     */
+    public function check_that_the_name_is_not_null()
+    {
+        $this->expectException(UsernameGeneratorException::class);
+        $this->expectExceptionMessage('The name cannot be null');
+
+        $this->usernameGenerator->make('');
     }
 
     /**
@@ -48,18 +59,5 @@ class UsernameNameDriverExceptionTest extends TestCase
 
         $this->usernameGenerator->make('larcec@test.com');
         Username::make('larcec@test.com');
-    }
-
-    /**
-     * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
-     */
-    public function get_error_with_the_value_provided_exceeds_four_words()
-    {
-        $this->expectException(UsernameGeneratorException::class);
-        $this->expectExceptionMessage('Too many values have been provided to the username generator, the candidate words provided are: 5, the number of words supported is: 4.');
-
-        $this->usernameGenerator->make('Luis Andrés Arce Cárdenas Maple');
-        Username::make('Luis Andrés Arce Cárdenas Maple');
     }
 }
