@@ -28,6 +28,9 @@ Now publish the configuration file into your app's config directory, by running 
 php artisan vendor:publish --provider="Luilliarcec\LaravelUsernameGenerator\UsernameGeneratorServiceProvider"
 ```
 
+Remember, if you use Laravel 8, configure your configuration file `laravel-username-generator.php` and in 
+model replace the default with `\App\Models\User`
+
 That is all. 😀
 
 ## Usage
