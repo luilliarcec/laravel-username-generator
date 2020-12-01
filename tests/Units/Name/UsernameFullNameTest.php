@@ -5,8 +5,8 @@ namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Name;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
+use Luilliarcec\LaravelUsernameGenerator\Tests\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 
 class UsernameFullNameTest extends TestCase

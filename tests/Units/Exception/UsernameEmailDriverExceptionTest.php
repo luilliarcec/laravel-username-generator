@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 
@@ -40,7 +39,7 @@ class UsernameEmailDriverExceptionTest extends TestCase
 
     /**
      * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     * @throws UsernameGeneratorException
      */
     public function get_error_with_invalid_email()
     {

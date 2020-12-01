@@ -38,7 +38,7 @@ class UsernameNameDriverExceptionTest extends TestCase
 
     /**
      * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     * @throws UsernameGeneratorException
      */
     public function check_that_the_name_is_not_null()
     {
@@ -50,7 +50,7 @@ class UsernameNameDriverExceptionTest extends TestCase
 
     /**
      * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     * @throws UsernameGeneratorException
      */
     public function get_error_with_invalid_email()
     {

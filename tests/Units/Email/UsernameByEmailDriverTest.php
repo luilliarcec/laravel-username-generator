@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use Luilliarcec\LaravelUsernameGenerator\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
+use Luilliarcec\LaravelUsernameGenerator\Tests\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 
 class UsernameByEmailDriverTest extends TestCase
@@ -47,7 +47,7 @@ class UsernameByEmailDriverTest extends TestCase
 
     /**
      * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     * @throws UsernameGeneratorException
      */
     public function make_lower_username()
     {
@@ -60,7 +60,7 @@ class UsernameByEmailDriverTest extends TestCase
 
     /**
      * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     * @throws UsernameGeneratorException
      */
     public function make_lower_username_with_similar_username_without_duplicate()
     {
@@ -83,7 +83,7 @@ class UsernameByEmailDriverTest extends TestCase
 
     /**
      * @test
-     * @throws \Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException
+     * @throws UsernameGeneratorException
      */
     public function make_lower_username_with_similars_username_and_duplicate()
     {
