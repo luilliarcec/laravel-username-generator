@@ -1,8 +1,7 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Models;
+namespace Luilliarcec\LaravelUsernameGenerator\Tests\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
