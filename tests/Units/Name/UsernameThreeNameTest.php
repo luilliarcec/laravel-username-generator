@@ -62,16 +62,16 @@ class UsernameThreeNameTest extends TestCase
     public function make_lower_username_with_similar_username_without_duplicate()
     {
         for ($i = 1; $i <= 2; $i++) {
-            factory(User::class)->create([
+            User::create([
                 'username' => "larce{$i}"
             ]);
 
-            factory(User::class)->create([
+            User::create([
                 'username' => "larcec{$i}"
             ]);
         }
 
-        factory(User::class)->create([
+        User::create([
             'username' => "larcea"
         ]);
 
@@ -81,7 +81,7 @@ class UsernameThreeNameTest extends TestCase
         $username = Username::make('Luis Andrés', 'Arce');
         $this->assertEquals('larce', $username);
 
-        factory(User::class)->create([
+        User::create([
             'username' => "larceca"
         ]);
 
@@ -99,16 +99,16 @@ class UsernameThreeNameTest extends TestCase
     public function make_lower_username_with_similars_username_and_duplicate()
     {
         for ($i = 1; $i <= 2; $i++) {
-            factory(User::class)->create([
+            User::create([
                 'username' => "larce{$i}"
             ]);
 
-            factory(User::class)->create([
+            User::create([
                 'username' => "larcec{$i}"
             ]);
         }
 
-        factory(User::class)->create([
+        User::create([
             'username' => "larce"
         ]);
 
@@ -118,7 +118,7 @@ class UsernameThreeNameTest extends TestCase
         $username = Username::make('Luis Andrés', 'Arce');
         $this->assertEquals('larce3', $username);
 
-        factory(User::class)->create([
+        User::create([
             'username' => "larcec"
         ]);
 

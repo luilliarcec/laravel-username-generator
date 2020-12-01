@@ -49,12 +49,12 @@ class UsernameOneNameTest extends TestCase
     public function make_lower_username_with_similar_username_without_duplicate()
     {
         for ($i = 1; $i <= 5; $i++) {
-            factory(User::class)->create([
+            User::create([
                 'username' => "luis{$i}"
             ]);
         }
 
-        factory(User::class)->create([
+        User::create([
             'username' => "luisamaria"
         ]);
 
@@ -72,12 +72,12 @@ class UsernameOneNameTest extends TestCase
     public function make_lower_username_with_similars_username_and_duplicate()
     {
         for ($i = 1; $i <= 5; $i++) {
-            factory(User::class)->create([
+            User::create([
                 'username' => "luis{$i}"
             ]);
         }
 
-        factory(User::class)->create([
+        User::create([
             'username' => "luis"
         ]);
 

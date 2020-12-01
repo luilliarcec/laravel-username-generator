@@ -56,12 +56,12 @@ class UsernameFullNameTest extends TestCase
     public function make_lower_username_with_similar_username_without_duplicate()
     {
         for ($i = 1; $i <= 2; $i++) {
-            factory(User::class)->create([
+            User::create([
                 'username' => "larcec{$i}"
             ]);
         }
 
-        factory(User::class)->create([
+        User::create([
             'username' => "larceca"
         ]);
 
@@ -85,12 +85,12 @@ class UsernameFullNameTest extends TestCase
     public function make_lower_username_with_similars_username_and_duplicate()
     {
         for ($i = 1; $i <= 3; $i++) {
-            factory(User::class)->create([
+            User::create([
                 'username' => "larcec{$i}"
             ]);
         }
 
-        factory(User::class)->create([
+        User::create([
             'username' => "larcec"
         ]);
 
