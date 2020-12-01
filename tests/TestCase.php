@@ -3,6 +3,7 @@
 
 namespace Luilliarcec\LaravelUsernameGenerator\Tests;
 
+use Luilliarcec\LaravelUsernameGenerator\Tests\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\UsernameGeneratorServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -17,7 +18,6 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__ . '/../database/factories');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
@@ -46,7 +46,7 @@ class TestCase extends Orchestra
         $app['config']->set('laravel-username-generator.column', 'username');
         $app['config']->set('laravel-username-generator.case', 'lower');
         $app['config']->set('laravel-username-generator.driver', 'name');
-        $app['config']->set('laravel-username-generator.model', '\Luilliarcec\LaravelUsernameGenerator\Models\User');
+        $app['config']->set('laravel-username-generator.model', User::class);
 
         /** Database */
         $app['config']->set('database.default', 'testdb');
