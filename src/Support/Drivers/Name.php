@@ -11,7 +11,7 @@ class Name implements UsernameDriverContract
      * Create the username from the received parameters
      *
      * @param string $name Firstname or Email
-     * @param string $lastname Lastname
+     * @param string|null $lastname Lastname
      * @return string
      * @throws UsernameGeneratorException
      */
