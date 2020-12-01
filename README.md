@@ -10,13 +10,23 @@ Laravel Username Generator is a package that allows the versatile generation of 
 has a simple integration with Laravel.
 
 The user generation is given by two types of controllers that can be defined in the 
-`config\laravel-username-generator.php` file. 
+`config\username-generator.php` file. 
 You can generate from the name of the user, taking into account that you do not use more than two names and 
 two surnames in total. It can also be generated from the user's email.
 
 ## Installation
 
 You can install the package via composer:
+
+| Laravel | Username Generator |
+| -- | -- |
+| 6.x and 7.x | 1.1.x |
+| 8.x | 1.2.x |
+
+You can make use of version 1.2 in Laravel versions 6 and 7 but, 
+you will need to set the path to the `User` model in the config 
+file. Note that in this new version the config file is now called 
+`username-generator`.
 
 ```bash
 composer require luilliarcec/laravel-username-generator
@@ -27,9 +37,6 @@ Now publish the configuration file into your app's config directory, by running 
 ```bash
 php artisan vendor:publish --provider="Luilliarcec\LaravelUsernameGenerator\UsernameGeneratorServiceProvider"
 ```
-
-Remember, if you use Laravel 8, configure your configuration file `laravel-username-generator.php` and in 
-model replace the default with `\App\Models\User`
 
 That is all. 😀
 
@@ -46,7 +53,7 @@ $username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
 ```
 
 You can change the presentation of your username to uppercase from the configuration file. 
-`config\laravel-username-generator.php`
+`config\username-generator.php`
 
 ```php
 <?php
@@ -84,7 +91,7 @@ return [
     |
     */
 
-    'model' => '\App\User',
+    'model' => '\App\Models\User',
 
     /*
     |--------------------------------------------------------------------------
