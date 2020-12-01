@@ -34,7 +34,7 @@ class UsernameModelExceptionTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $app['config']->set('laravel-username-generator.model', '\Luilliarcec\LaravelUsernameGenerator\User');
+        $app['config']->set('username-generator.model', '\Luilliarcec\LaravelUsernameGenerator\User');
     }
 
     /**

@@ -43,10 +43,10 @@ class UsernameGenerator
      */
     public function __construct()
     {
-        $this->model = config('laravel-username-generator.model');
-        $this->column = config('laravel-username-generator.column');
-        $this->case = config('laravel-username-generator.case');
-        $this->driver = config('laravel-username-generator.driver');
+        $this->model = config('username-generator.model');
+        $this->column = config('username-generator.column');
+        $this->case = config('username-generator.case');
+        $this->driver = config('username-generator.driver');
     }
 
     /**

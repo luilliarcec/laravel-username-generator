@@ -43,10 +43,10 @@ class TestCase extends Orchestra
     protected function getEnvironmentSetUp($app)
     {
         /** Config */
-        $app['config']->set('laravel-username-generator.column', 'username');
-        $app['config']->set('laravel-username-generator.case', 'lower');
-        $app['config']->set('laravel-username-generator.driver', 'name');
-        $app['config']->set('laravel-username-generator.model', User::class);
+        $app['config']->set('username-generator.column', 'username');
+        $app['config']->set('username-generator.case', 'lower');
+        $app['config']->set('username-generator.driver', 'name');
+        $app['config']->set('username-generator.model', User::class);
 
         /** Database */
         $app['config']->set('database.default', 'testdb');

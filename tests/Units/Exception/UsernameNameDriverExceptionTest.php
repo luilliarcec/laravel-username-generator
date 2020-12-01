@@ -33,7 +33,8 @@ class UsernameNameDriverExceptionTest extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-        $app['config']->set('laravel-username-generator.driver', 'name');
+
+        $app['config']->set('username-generator.driver', 'name');
     }
 
     /**

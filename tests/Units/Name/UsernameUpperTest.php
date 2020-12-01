@@ -39,7 +39,7 @@ class UsernameUpperTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $app['config']->set('laravel-username-generator.case', 'upper');
+        $app['config']->set('username-generator.case', 'upper');
     }
 
     /**

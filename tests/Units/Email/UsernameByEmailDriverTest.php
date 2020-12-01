@@ -42,7 +42,7 @@ class UsernameByEmailDriverTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $app['config']->set('laravel-username-generator.driver', 'email');
+        $app['config']->set('username-generator.driver', 'email');
     }
 
     /**
