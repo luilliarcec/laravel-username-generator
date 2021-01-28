@@ -2,54 +2,27 @@
 
 namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units\Exception;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 
 class UsernameDriverExceptionTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
-
-    /**
-     * @var UsernameGenerator
-     */
-    protected $usernameGenerator;
-
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->usernameGenerator = new UsernameGenerator();
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        parent::getEnvironmentSetUp($app);
-
-        $app['config']->set('username-generator.driver', 'random');
-    }
-
-    /**
-     * @test
-     * @throws UsernameGeneratorException
-     */
-    public function make_lower_username()
+    /** @test */
+    function an_exception_is_received_when_the_drive_does_not_exist()
     {
         $this->expectException(UsernameGeneratorException::class);
         $this->expectExceptionMessage('Driver type not supported [random]: Class \'\Luilliarcec\LaravelUsernameGenerator\Support\Drivers\Random\' not found');
 
-        $username = $this->usernameGenerator->make('Luis');
-        $this->assertEquals('luis', $username);
+        Username::setDriver('random')->make('Luis');
+    }
 
-        $username = Username::make('Luis');
-        $this->assertEquals('luis', $username);
+    /** @test */
+    function an_exception_is_received_when_wrong_driver_is_used()
+    {
+        $this->expectException(UsernameGeneratorException::class);
+        $this->expectExceptionMessage('Use the email driver, to generate a username from the email.');
+
+        Username::setDriver('name')->make('larcec@test.com');
     }
 }
