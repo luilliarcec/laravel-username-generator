@@ -3,12 +3,16 @@
 
 namespace Luilliarcec\LaravelUsernameGenerator\Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use Luilliarcec\LaravelUsernameGenerator\Tests\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\UsernameGeneratorServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
     /**
      * Setup the test environment.
      *
@@ -28,7 +32,7 @@ class TestCase extends Orchestra
      *
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [UsernameGeneratorServiceProvider::class];
     }
@@ -42,11 +46,10 @@ class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
-        /** Config */
-        $app['config']->set('username-generator.column', 'username');
-        $app['config']->set('username-generator.case', 'lower');
-        $app['config']->set('username-generator.driver', 'name');
-        $app['config']->set('username-generator.model', User::class);
+        Username::setModel(User::class)
+            ->setColum('username')
+            ->setDriver('name')
+            ->setCase('lower');
 
         /** Database */
         $app['config']->set('database.default', 'testdb');
