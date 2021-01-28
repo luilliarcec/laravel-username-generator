@@ -13,40 +13,87 @@ class UsernameGenerator
     /**
      * Model Eloquent with username
      *
-     * @var \Illuminate\Config\Repository
+     * @var string
      */
     protected $model;
 
     /**
      * Column for Username in database
      *
-     * @var \Illuminate\Config\Repository
+     * @var string
      */
     protected $column;
 
     /**
      * Case string lower or upper
      *
-     * @var \Illuminate\Config\Repository
+     * @var string
      */
     protected $case;
 
     /**
      * Driver generator name or email
      *
-     * @var \Illuminate\Config\Repository
+     * @var string
      */
     protected $driver;
 
     /**
-     * UsernameGenerator constructor.
+     * Set the model to use for the generation of usernames
+     *
+     * @param string $model
+     * @param string|null $column
+     * @return $this
      */
-    public function __construct()
+    public function setModel(string $model, string $column = null): UsernameGenerator
     {
-        $this->model = config('username-generator.model');
-        $this->column = config('username-generator.column');
-        $this->case = config('username-generator.case');
-        $this->driver = config('username-generator.driver');
+        $this->model = $model;
+
+        if ($column) {
+            $this->setColum($column);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the column to use for the generation of usernames
+     *
+     * @param string $column
+     * @return $this
+     */
+    public function setColum(string $column): UsernameGenerator
+    {
+        $this->column = $column;
+
+        return $this;
+    }
+
+
+    /**
+     * Set the case to use for the generation of usernames
+     *
+     * @param string $case
+     * @return $this
+     */
+    public function setCase(string $case): UsernameGenerator
+    {
+        $this->case = $case;
+
+        return $this;
+    }
+
+    /**
+     * Set the driver to use for the generation of usernames
+     *
+     * @param string $driver
+     * @return $this
+     */
+    public function setDriver(string $driver): UsernameGenerator
+    {
+        $this->driver = $driver;
+
+        return $this;
     }
 
     /**
