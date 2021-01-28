@@ -23,7 +23,7 @@ class Name implements UsernameDriverContract
             return $name;
         }
 
-        $lastname_array = $this->getLastnameAsArray($lastname, $name);
+        $lastname_array = $this->getLastnameAsArray($name, $lastname);
         $name_array = $this->getNameAsArray($name);
 
         $first_letter = $this->getFirstLetterName($name_array);
@@ -117,11 +117,11 @@ class Name implements UsernameDriverContract
     /**
      * Get valid lastname as array
      *
-     * @param string $lastname
      * @param string $name
+     * @param string|null $lastname
      * @return array
      */
-    protected function getLastnameAsArray($lastname, $name): array
+    protected function getLastnameAsArray(string $name, ?string $lastname): array
     {
         $name_array = explode(' ', $name);
         $count_name = count($name_array);

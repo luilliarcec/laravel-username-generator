@@ -24,6 +24,7 @@ class Email implements UsernameDriverContract
         }
 
         $username = explode('@', $name);
+
         return $username[0];
     }
 }
