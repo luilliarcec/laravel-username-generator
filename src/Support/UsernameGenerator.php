@@ -4,6 +4,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Support;
 
 use BadMethodCallException;
 use Error;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
@@ -166,13 +167,19 @@ class UsernameGenerator
     /**
      * Returns an instance of the model in its configuration file
      *
-     * @return mixed
+     * @return Model
      * @throws UsernameGeneratorException
      */
-    protected function getModel()
+    protected function getModel(): Model
     {
         try {
-            return new $this->model;
+            $model = new $this->model;
+
+            if (!$model instanceof Model) {
+                throw new UsernameGeneratorException('[' . strval($this->model) . '] is not an instance of ' . Model::class, null);
+            }
+
+            return $model;
         } catch (Error $e) {
             throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($this->model) . ']: ' . $e->getMessage(), null, $e);
         }

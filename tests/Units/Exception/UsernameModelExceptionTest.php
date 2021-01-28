@@ -18,4 +18,21 @@ class UsernameModelExceptionTest extends TestCase
 
         Username::setModel('App\Foo')->make('Luis');
     }
+
+    /** @test */
+    function an_exception_is_received_when_the_model_does_not_instance_of_eloquent_model()
+    {
+        $this->expectException(UsernameGeneratorException::class);
+        $this->expectExceptionMessage(
+            "[Luilliarcec\LaravelUsernameGenerator\Tests\Units\Exception\FooBar] is not an instance of Illuminate\Database\Eloquent\Model"
+        );
+
+        Username::setModel(FooBar::class)
+            ->make('Luis');
+    }
+}
+
+class FooBar
+{
+
 }
