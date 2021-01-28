@@ -34,5 +34,4 @@ class UsernameModelExceptionTest extends TestCase
 
 class FooBar
 {
-
 }

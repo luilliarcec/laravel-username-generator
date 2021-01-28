@@ -53,7 +53,7 @@ class UsernameFullNameTest extends TestCase
         }
 
         User::create([
-            'username' => "larceca"
+            'username' => 'larceca'
         ]);
 
         $this->assertEquals(
@@ -77,7 +77,7 @@ class UsernameFullNameTest extends TestCase
         }
 
         User::create([
-            'username' => "larcec"
+            'username' => 'larcec'
         ]);
 
         $this->assertEquals(

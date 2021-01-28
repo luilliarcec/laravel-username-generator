@@ -19,7 +19,7 @@ class Email implements UsernameDriverContract
     {
         if (!filter_var($name, FILTER_VALIDATE_EMAIL)) {
             throw new UsernameGeneratorException(
-                "The value provided does not have a valid email format."
+                'The value provided does not have a valid email format.'
             );
         }
 

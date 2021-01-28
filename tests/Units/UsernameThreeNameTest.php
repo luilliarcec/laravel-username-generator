@@ -30,9 +30,9 @@ class UsernameThreeNameTest extends TestCase
     /** @test */
     function make_username_with_similar_username_without_duplicate()
     {
-        User::create(['username' => "larcea"]);
+        User::create(['username' => 'larcea']);
 
-        User::create(['username' => "larceca"]);
+        User::create(['username' => 'larceca']);
 
         for ($i = 1; $i <= 2; $i++) {
             User::create([
@@ -58,9 +58,9 @@ class UsernameThreeNameTest extends TestCase
     /** @test */
     function make_username_with_similars_username_and_duplicate()
     {
-        User::create(['username' => "larce"]);
+        User::create(['username' => 'larce']);
 
-        User::create(['username' => "larcec"]);
+        User::create(['username' => 'larcec']);
 
         for ($i = 1; $i <= 2; $i++) {
             User::create([

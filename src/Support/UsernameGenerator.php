@@ -124,10 +124,9 @@ class UsernameGenerator
     {
         $len = strlen($username);
         $users = $this->findDuplicateUsername($username);
-        $prefix = "";
+        $prefix = '';
 
         if ($users->count()) {
-
             $prefixes = [];
 
             foreach ($users as $user) {

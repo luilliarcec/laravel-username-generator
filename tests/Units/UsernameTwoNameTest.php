@@ -26,7 +26,7 @@ class UsernameTwoNameTest extends TestCase
     function make_username_with_similar_username_without_duplicate()
     {
         User::create([
-            'username' => "larcec"
+            'username' => 'larcec'
         ]);
 
         for ($i = 1; $i <= 5; $i++) {
@@ -50,7 +50,7 @@ class UsernameTwoNameTest extends TestCase
     function make_username_with_similars_username_and_duplicate()
     {
         User::create([
-            'username' => "larce"
+            'username' => 'larce'
         ]);
 
         for ($i = 1; $i <= 6; $i++) {

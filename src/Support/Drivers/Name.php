@@ -88,11 +88,11 @@ class Name implements UsernameDriverContract
     protected function validate(string $name)
     {
         if (filter_var($name, FILTER_VALIDATE_EMAIL)) {
-            throw new UsernameGeneratorException("Use the email driver, to generate a username from the email.");
+            throw new UsernameGeneratorException('Use the email driver, to generate a username from the email.');
         }
 
         if ($name == null) {
-            throw new UsernameGeneratorException("The name cannot be null");
+            throw new UsernameGeneratorException('The name cannot be null');
         }
     }
 

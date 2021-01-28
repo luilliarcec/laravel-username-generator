@@ -27,7 +27,7 @@ class UsernameOneNameTest extends TestCase
         }
 
         User::create([
-            'username' => "luisamaria"
+            'username' => 'luisamaria'
         ]);
 
         $this->assertEquals(
@@ -46,7 +46,7 @@ class UsernameOneNameTest extends TestCase
         }
 
         User::create([
-            'username' => "luis"
+            'username' => 'luis'
         ]);
 
         $this->assertEquals(
