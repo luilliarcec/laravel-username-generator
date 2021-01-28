@@ -8,6 +8,12 @@ use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 
 /**
  * @method static string|UsernameGeneratorException make(string $name, string $lastname = null)
+ * @method static UsernameGenerator setModel(string $model, string $column = null)
+ * @method static UsernameGenerator setColum(string $column)
+ * @method static UsernameGenerator setCase(string $case)
+ * @method static UsernameGenerator setDriver(string $driver)
+ *
+ *
  * @see UsernameGenerator
  */
 class Username extends Facade
