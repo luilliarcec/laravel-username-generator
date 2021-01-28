@@ -60,7 +60,7 @@ class UsernameGenerator
     public function make(string $name, string $lastname = null): string
     {
         $username = $this->getDriver()->make($name, $lastname);
-        $username = $this->getCase($username);
+        $username = $this->applyCase($username);
         $prefix = $this->getPrefixUsername($username);
         return ($username . $prefix);
     }
@@ -107,7 +107,7 @@ class UsernameGenerator
      */
     protected function findDuplicateUsername(string $username)
     {
-        $model = $this->getModel($this->model);
+        $model = $this->getModel();
 
         $duplicate = $model->newQuery()->where($this->column, $username)->get([$this->column]);
 
@@ -119,32 +119,15 @@ class UsernameGenerator
     /**
      * Returns an instance of the model in its configuration file
      *
-     * @param \Illuminate\Config\Repository $model
      * @return mixed
      * @throws UsernameGeneratorException
      */
-    protected function getModel($model)
+    protected function getModel()
     {
         try {
-            return new $model;
+            return new $this->model;
         } catch (Error $e) {
-            throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($model) . ']: ' . $e->getMessage(), null, $e);
-        }
-    }
-
-    /**
-     * Get parsed by the case
-     *
-     * @param string $username
-     * @return string
-     * @throws UsernameGeneratorException
-     */
-    protected function getCase(string $username): string
-    {
-        try {
-            return Str::{$this->case}($username);
-        } catch (BadMethodCallException $e) {
-            throw new UsernameGeneratorException('Case type not supported [' . strval($this->case) . ']: ' . $e->getMessage(), null, $e);
+            throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($this->model) . ']: ' . $e->getMessage(), null, $e);
         }
     }
 
@@ -162,6 +145,22 @@ class UsernameGenerator
             return new $driver;
         } catch (Error $e) {
             throw new UsernameGeneratorException('Driver type not supported [' . strval($this->driver) . ']: ' . $e->getMessage(), null, $e);
+        }
+    }
+
+    /**
+     * Get parsed by the case
+     *
+     * @param string $username
+     * @return string
+     * @throws UsernameGeneratorException
+     */
+    protected function applyCase(string $username): string
+    {
+        try {
+            return Str::{$this->case}($username);
+        } catch (BadMethodCallException $e) {
+            throw new UsernameGeneratorException('Case type not supported [' . strval($this->case) . ']: ' . $e->getMessage(), null, $e);
         }
     }
 }
