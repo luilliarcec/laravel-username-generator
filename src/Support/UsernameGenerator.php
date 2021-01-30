@@ -12,6 +12,13 @@ use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 class UsernameGenerator
 {
     /**
+     * Model Eloquent use SoftDelete
+     *
+     * @var bool
+     */
+    protected $withTrashed = false;
+
+    /**
      * Model Eloquent with username
      *
      * @var string
@@ -38,6 +45,19 @@ class UsernameGenerator
      * @var string
      */
     protected $driver;
+
+    /**
+     * Indicates if you use softDeletes
+     *
+     * @param bool $value
+     * @return $this
+     */
+    public function withTrashed(bool $value = false): UsernameGenerator
+    {
+        $this->withTrashed = $value;
+
+        return $this;
+    }
 
     /**
      * Set the model to use for the generation of usernames
@@ -69,7 +89,6 @@ class UsernameGenerator
 
         return $this;
     }
-
 
     /**
      * Set the case to use for the generation of usernames
@@ -148,6 +167,23 @@ class UsernameGenerator
     }
 
     /**
+     * Set the model to use for the generation of usernames
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws UsernameGeneratorException
+     */
+    protected function query(): \Illuminate\Database\Eloquent\Builder
+    {
+        if ($this->withTrashed) {
+            return $this->getModel()->newQuery()
+                ->withTrashed();
+        } else {
+            return $this->getModel()->newQuery();
+        }
+    }
+
+    /**
      * Search for similar or repeated username
      *
      * @param string $username
@@ -156,14 +192,12 @@ class UsernameGenerator
      */
     protected function findDuplicateUsername(string $username): \Illuminate\Database\Eloquent\Collection
     {
-        $model = $this->getModel();
-
-        $duplicate = $model->newQuery()
+        $duplicate = $this->query()
             ->where($this->column, $username)
             ->get([$this->column]);
 
         return $duplicate->isNotEmpty()
-            ? $model->newQuery()
+            ? $this->query()
                 ->where($this->column, 'LIKE', "$username%")
                 ->get([$this->column])
             : $duplicate;

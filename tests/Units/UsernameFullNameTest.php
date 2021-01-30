@@ -114,4 +114,26 @@ class UsernameFullNameTest extends TestCase
             Username::make('Luis Andrés Arce Cárdenas')
         );
     }
+
+    /** @test */
+    function make_username_with_softdelete()
+    {
+        $user = User::create([
+            'username' => 'larcec'
+        ]);
+
+        $user->delete();
+
+        $this->assertEquals(
+            'larcec1',
+            Username::withTrashed(true)
+                ->make('Luis Andrés', 'Arce Cárdenas')
+        );
+
+        $this->assertEquals(
+            'larcec1',
+            Username::withTrashed(true)
+                ->make('Luis Andrés Arce Cárdenas')
+        );
+    }
 }

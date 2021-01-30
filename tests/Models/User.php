@@ -2,12 +2,13 @@
 
 namespace Luilliarcec\LaravelUsernameGenerator\Tests\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +40,7 @@ class User extends Authenticatable
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
     public function newEloquentBuilder($query)
