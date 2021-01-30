@@ -5,12 +5,25 @@ namespace Luilliarcec\LaravelUsernameGenerator\Support;
 use BadMethodCallException;
 use Error;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
+use Luilliarcec\LaravelUsernameGenerator\Support\Drivers\Email;
+use Luilliarcec\LaravelUsernameGenerator\Support\Drivers\Name;
 
 class UsernameGenerator
 {
+    /**
+     * Drivers aliases
+     *
+     * @var string[]
+     */
+    protected const DRIVER_ALIASES = [
+        'name' => Name::class,
+        'email' => Email::class,
+    ];
+
     /**
      * Model Eloquent use SoftDelete
      *
@@ -42,7 +55,7 @@ class UsernameGenerator
     /**
      * Driver generator name or email
      *
-     * @var string
+     * @var mixed
      */
     protected $driver;
 
@@ -106,10 +119,10 @@ class UsernameGenerator
     /**
      * Set the driver to use for the generation of usernames
      *
-     * @param string $driver
+     * @param mixed $driver
      * @return $this
      */
-    public function setDriver(string $driver): UsernameGenerator
+    public function setDriver($driver): UsernameGenerator
     {
         $this->driver = $driver;
 
@@ -232,13 +245,15 @@ class UsernameGenerator
      */
     protected function getDriver(): UsernameDriverContract
     {
-        $driver = '\Luilliarcec\LaravelUsernameGenerator\Support\Drivers\\' . Str::studly(strval($this->driver));
-
-        try {
-            return new $driver;
-        } catch (Error $e) {
-            throw new UsernameGeneratorException('Driver type not supported [' . strval($this->driver) . ']: ' . $e->getMessage(), null, $e);
+        if (is_string($this->driver)) {
+            if ($driver = $this->resolveDriverByAlias()) {
+                return $driver;
+            } elseif ($driver = $this->resolveDriverByClassName()) {
+                return $driver;
+            }
         }
+
+        return $this->resolveDriverByObject();
     }
 
     /**
@@ -254,6 +269,55 @@ class UsernameGenerator
             return Str::{$this->case}($username);
         } catch (BadMethodCallException $e) {
             throw new UsernameGeneratorException('Case type not supported [' . strval($this->case) . ']: ' . $e->getMessage(), null, $e);
+        }
+    }
+
+    /**
+     * Resolve Driver by Alias
+     *
+     * @return UsernameDriverContract|null
+     */
+    private function resolveDriverByAlias(): ?UsernameDriverContract
+    {
+        if (Arr::exists(self::DRIVER_ALIASES, $this->driver)) {
+            $driver = self::DRIVER_ALIASES[$this->driver];
+
+            return new $driver;
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve Driver by ClassName
+     *
+     * @return UsernameDriverContract|null
+     * @throws UsernameGeneratorException
+     */
+    private function resolveDriverByClassName(): ?UsernameDriverContract
+    {
+        try {
+            return $this->resolveDriverByObject(new $this->driver);
+        } catch (Error $e) {
+            throw new UsernameGeneratorException('Not found class [' . strval($this->driver) . ']: ' . $e->getMessage(), null, $e);
+        }
+    }
+
+    /**
+     * Resolve Driver by Object
+     *
+     * @param object|null $driver
+     * @return UsernameDriverContract|mixed
+     * @throws UsernameGeneratorException
+     */
+    private function resolveDriverByObject(object $driver = null): UsernameDriverContract
+    {
+        $driver = $driver ?: $this->driver;
+
+        if ($driver instanceof UsernameDriverContract) {
+            return $driver;
+        } else {
+            throw new UsernameGeneratorException('[' . strval($driver) . '] is not an instance of ' . UsernameDriverContract::class, null);
         }
     }
 }
