@@ -299,7 +299,7 @@ class UsernameGenerator
         try {
             return $this->resolveDriverByObject(new $this->driver);
         } catch (Error $e) {
-            throw new UsernameGeneratorException('Not found class [' . strval($this->driver) . ']: ' . $e->getMessage(), null, $e);
+            throw new UsernameGeneratorException('Class [' . strval($this->driver) . '] not found', null, $e);
         }
     }
 
