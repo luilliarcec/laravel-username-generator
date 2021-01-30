@@ -156,11 +156,15 @@ class UsernameGenerator
     {
         $model = $this->getModel();
 
-        $duplicate = $model->newQuery()->where($this->column, $username)->get([$this->column]);
+        $duplicate = $model->newQuery()
+            ->where($this->column, $username)
+            ->get([$this->column]);
 
-        return $duplicate->isNotEmpty() ?
-            $model->newQuery()->where($this->column, 'LIKE', "$username%")->get([$this->column]) :
-            $duplicate;
+        return $duplicate->isNotEmpty()
+            ? $model->newQuery()
+                ->where($this->column, 'LIKE', "$username%")
+                ->get([$this->column])
+            : $duplicate;
     }
 
     /**
