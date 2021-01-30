@@ -126,7 +126,7 @@ class UsernameGenerator
         $users = $this->findDuplicateUsername($username);
         $prefix = '';
 
-        if ($users->count()) {
+        if ($users->isNotEmpty()) {
             $prefixes = [];
 
             foreach ($users as $user) {
@@ -152,13 +152,13 @@ class UsernameGenerator
      * @return mixed
      * @throws UsernameGeneratorException
      */
-    protected function findDuplicateUsername(string $username)
+    protected function findDuplicateUsername(string $username): \Illuminate\Database\Eloquent\Collection
     {
         $model = $this->getModel();
 
         $duplicate = $model->newQuery()->where($this->column, $username)->get([$this->column]);
 
-        return $duplicate->count() ?
+        return $duplicate->isNotEmpty() ?
             $model->newQuery()->where($this->column, 'LIKE', "$username%")->get([$this->column]) :
             $duplicate;
     }
