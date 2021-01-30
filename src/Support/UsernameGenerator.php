@@ -109,8 +109,8 @@ class UsernameGenerator
     {
         $username = $this->getDriver()->make($name, $lastname);
         $username = $this->applyCase($username);
-        $prefix = $this->getPrefixUsername($username);
-        return ($username . $prefix);
+
+        return $username . $this->getPrefixUsername($username);
     }
 
     /**
@@ -122,24 +122,26 @@ class UsernameGenerator
      */
     protected function getPrefixUsername(string $username)
     {
-        $len = strlen($username);
+        $length = strlen($username);
         $users = $this->findDuplicateUsername($username);
         $prefix = '';
 
         if ($users->isNotEmpty()) {
-            $prefixes = [];
+            $users = $users->filter(function ($user) use ($length) {
+                return is_numeric(
+                    substr($user->{$this->column}, $length)
+                );
+            });
 
-            foreach ($users as $user) {
-                $prefixAux = substr($user->{$this->column}, $len);
+            if ($users->isNotEmpty()) {
+                $user = $users
+                    ->sortByDesc($this->column)
+                    ->first();
 
-                if (is_numeric($prefixAux)) {
-                    array_push($prefixes, $prefixAux);
-                }
+                $prefix = substr($user->{$this->column}, $length) + 1;
+            } else {
+                $prefix = 1;
             }
-
-            sort($prefixes, SORT_NUMERIC);
-
-            $prefix = (int)end($prefixes) + 1;
         }
 
         return $prefix;

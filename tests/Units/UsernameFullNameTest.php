@@ -90,4 +90,28 @@ class UsernameFullNameTest extends TestCase
             Username::make('Luis Andrés Arce Cárdenas')
         );
     }
+
+    /** @test */
+    function make_username_with_duplicates()
+    {
+        for ($i = 5; $i <= 30; $i += 2) {
+            User::create([
+                'username' => "larcec{$i}"
+            ]);
+        }
+
+        User::create([
+            'username' => 'larcec'
+        ]);
+
+        $this->assertEquals(
+            'larcec10',
+            Username::make('Luis Andrés', 'Arce Cárdenas')
+        );
+
+        $this->assertEquals(
+            'larcec10',
+            Username::make('Luis Andrés Arce Cárdenas')
+        );
+    }
 }
