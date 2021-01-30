@@ -12,7 +12,7 @@ class UsernameDriverExceptionTest extends TestCase
     function an_exception_is_received_when_the_drive_does_not_exist()
     {
         $this->expectException(UsernameGeneratorException::class);
-        $this->expectExceptionMessage('Class [random] not found');
+        $this->expectExceptionMessage("Unable to resolve the driver [random]: Class 'random' not found");
 
         Username::setDriver('random')->make('Luis');
     }

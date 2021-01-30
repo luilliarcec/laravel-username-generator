@@ -233,7 +233,7 @@ class UsernameGenerator
 
             return $model;
         } catch (Error $e) {
-            throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($this->model) . ']: ' . $e->getMessage(), null, $e);
+            throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($this->model) . ']: ' . str_replace('"', '\'', $e->getMessage()), null, $e);
         }
     }
 
@@ -299,7 +299,7 @@ class UsernameGenerator
         try {
             return $this->resolveDriverByObject(new $this->driver);
         } catch (Error $e) {
-            throw new UsernameGeneratorException('Class [' . strval($this->driver) . '] not found', null, $e);
+            throw new UsernameGeneratorException('Unable to resolve the driver [' . strval($this->driver) . ']: ' . str_replace('"', '\'', $e->getMessage()), null, $e);
         }
     }
 
