@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
+## 2.1.0 - 2021-04-18
+
+- Add withoutTrashed method
+- Remove parameter boolean in withTrashed method
+
 ## 2.0.0 - 2021-01-30
 
 - Performance improvement
