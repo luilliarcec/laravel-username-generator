@@ -8,7 +8,8 @@ use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
 
 /**
  * @method static string|UsernameGeneratorException make(string $name, string $lastname = null)
- * @method static UsernameGenerator withTrashed(bool $value)
+ * @method static UsernameGenerator withTrashed()
+ * @method static UsernameGenerator withoutTrashed()
  * @method static UsernameGenerator setModel(string $model, string $column = null)
  * @method static UsernameGenerator setColum(string $column)
  * @method static UsernameGenerator setCase(string $case)
