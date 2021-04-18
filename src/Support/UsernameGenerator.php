@@ -62,12 +62,23 @@ class UsernameGenerator
     /**
      * Indicates if you use softDeletes
      *
-     * @param bool $value
      * @return $this
      */
-    public function withTrashed(bool $value = false): UsernameGenerator
+    public function withTrashed(): UsernameGenerator
     {
-        $this->withTrashed = $value;
+        $this->withTrashed = true;
+
+        return $this;
+    }
+
+    /**
+     * Indicates if you dont use softDeletes
+     *
+     * @return $this
+     */
+    public function withoutTrashed(): UsernameGenerator
+    {
+        $this->withTrashed = false;
 
         return $this;
     }
