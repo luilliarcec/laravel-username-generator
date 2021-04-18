@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Username::withTrashed(true)
+        Username::withTrashed()
             ->setDriver('name')
             ->setCase('lower')
             ->setModel(User::class)
@@ -133,16 +133,28 @@ $username = Username::setModel(CustomModel::class)->setColum('other_column')->ma
 
 #### Support for softdelete
 
-And last but not least, and you want your generator to check usernames against deleted users, 
-now you can with the withTrashed function.
-
-This function defaults to false.
+And last but not least, if you want your generator to verify usernames with deleted users, now you can with the
+withTrashed function.
 
 ```php
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
 use App\Models\User;
 
-Username::withTrashed(true)
+Username::withTrashed()
+            ->setDriver('name')
+            ->setCase('lower')
+            ->setModel(User::class)
+            ->setColum('username');
+```
+
+But if you don't use softDelete or don't want to check with deleted users, use the withoutTrashed method. 
+(By default this method is already applied)
+
+```php
+use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
+use App\Models\User;
+
+Username::withoutTrashed()
             ->setDriver('name')
             ->setCase('lower')
             ->setModel(User::class)
