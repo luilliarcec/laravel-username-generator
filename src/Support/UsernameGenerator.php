@@ -200,10 +200,14 @@ class UsernameGenerator
     protected function query(): \Illuminate\Database\Eloquent\Builder
     {
         if ($this->withTrashed) {
-            return $this->getModel()->newQuery()
+            return $this
+                ->getModel()
+                ->newQuery()
                 ->withTrashed();
         } else {
-            return $this->getModel()->newQuery();
+            return $this
+                ->getModel()
+                ->newQuery();
         }
     }
 
