@@ -178,7 +178,9 @@ class UsernameGenerator
 
             if ($users->isNotEmpty()) {
                 $user = $users
-                    ->sortByDesc($this->column)
+                    ->sortByDesc(function ($user) use ($length) {
+                        return substr($user->{$this->column}, $length);
+                    })
                     ->first();
 
                 $prefix = substr($user->{$this->column}, $length) + 1;

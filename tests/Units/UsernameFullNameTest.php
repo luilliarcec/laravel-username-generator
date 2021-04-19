@@ -105,12 +105,12 @@ class UsernameFullNameTest extends TestCase
         ]);
 
         $this->assertEquals(
-            'larcec10',
+            'larcec30',
             Username::make('Luis Andrés', 'Arce Cárdenas')
         );
 
         $this->assertEquals(
-            'larcec10',
+            'larcec30',
             Username::make('Luis Andrés Arce Cárdenas')
         );
     }
