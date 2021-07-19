@@ -36,28 +36,28 @@ class UsernameGenerator
      *
      * @var string
      */
-    protected $model;
+    protected $model = 'App\Models\User';
 
     /**
      * Column for Username in database
      *
      * @var string
      */
-    protected $column;
+    protected $column = 'username';
 
     /**
      * Case string lower or upper
      *
      * @var string
      */
-    protected $case;
+    protected $case = 'lower';
 
     /**
      * Driver generator name or email
      *
      * @var mixed
      */
-    protected $driver;
+    protected $driver = 'name';
 
     /**
      * Indicates if you use softDeletes

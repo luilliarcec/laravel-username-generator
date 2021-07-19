@@ -14,6 +14,13 @@ class TestCase extends Orchestra
     use RefreshDatabase;
 
     /**
+     * Determines starts with an initial configuration from the environment
+     *
+     * @var bool
+     */
+    protected $withInitialConfigUsername = true;
+
+    /**
      * Setup the test environment.
      *
      * @return void
@@ -46,10 +53,12 @@ class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
-        Username::setModel(User::class)
-            ->setColum('username')
-            ->setDriver('name')
-            ->setCase('lower');
+        if ($this->withInitialConfigUsername) {
+            Username::setModel(User::class)
+                ->setColum('username')
+                ->setDriver('name')
+                ->setCase('lower');
+        }
 
         /** Database */
         $app['config']->set('database.default', 'testdb');
