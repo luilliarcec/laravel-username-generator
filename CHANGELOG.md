@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
+## 2.2.2 - 2021-07-19
+
+- Default values were configured to the generator properties
+
 ## 2.1.2 - 2021-07-19
 
 - String type removed from setDriver function on facade
