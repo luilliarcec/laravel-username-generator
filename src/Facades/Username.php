@@ -13,7 +13,7 @@ use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
  * @method static UsernameGenerator setModel(string $model, string $column = null)
  * @method static UsernameGenerator setColum(string $column)
  * @method static UsernameGenerator setCase(string $case)
- * @method static UsernameGenerator setDriver(string $driver)
+ * @method static UsernameGenerator setDriver($driver)
  *
  *
  * @see UsernameGenerator
