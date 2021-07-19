@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
-## 2.2.2 - 2021-07-19
+## 2.2.0 - 2021-07-19
 
 - Default values were configured to the generator properties
 
