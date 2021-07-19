@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
+## 2.1.2 - 2021-07-19
+
+- String type removed from setDriver function on facade
+
+## 2.1.1 - 2021-04-19
+
+- Fixed bug that generated random numbers in the username
+
 ## 2.1.0 - 2021-04-18
 
 - Add withoutTrashed method
