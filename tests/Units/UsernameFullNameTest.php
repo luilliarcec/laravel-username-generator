@@ -10,7 +10,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameFullNameTest extends TestCase
 {
     /** @test */
-    function make_username_with_inline_configuration()
+    public function make_username_with_inline_configuration()
     {
         $this->assertEquals(
             'larcec',
@@ -30,7 +30,7 @@ class UsernameFullNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_default_configuration()
+    public function make_username_with_default_configuration()
     {
         $this->assertEquals(
             'larcec',
@@ -44,16 +44,16 @@ class UsernameFullNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_similar_username_without_duplicate()
+    public function make_username_with_similar_username_without_duplicate()
     {
         for ($i = 1; $i <= 2; $i++) {
             User::create([
-                'username' => "larcec{$i}"
+                'username' => "larcec{$i}",
             ]);
         }
 
         User::create([
-            'username' => 'larceca'
+            'username' => 'larceca',
         ]);
 
         $this->assertEquals(
@@ -68,16 +68,16 @@ class UsernameFullNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_similars_username_and_duplicate()
+    public function make_username_with_similars_username_and_duplicate()
     {
         for ($i = 1; $i <= 3; $i++) {
             User::create([
-                'username' => "larcec{$i}"
+                'username' => "larcec{$i}",
             ]);
         }
 
         User::create([
-            'username' => 'larcec'
+            'username' => 'larcec',
         ]);
 
         $this->assertEquals(
@@ -92,16 +92,16 @@ class UsernameFullNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_duplicates()
+    public function make_username_with_duplicates()
     {
         for ($i = 5; $i <= 30; $i += 2) {
             User::create([
-                'username' => "larcec{$i}"
+                'username' => "larcec{$i}",
             ]);
         }
 
         User::create([
-            'username' => 'larcec'
+            'username' => 'larcec',
         ]);
 
         $this->assertEquals(

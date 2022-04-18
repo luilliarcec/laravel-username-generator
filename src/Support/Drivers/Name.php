@@ -8,11 +8,12 @@ use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 class Name implements UsernameDriverContract
 {
     /**
-     * Create the username from the received parameters
+     * Create the username from the received parameters.
      *
-     * @param string $name Firstname or Email
-     * @param string|null $lastname Lastname
+     * @param  string  $name  Firstname or Email
+     * @param  string|null  $lastname  Lastname
      * @return string
+     *
      * @throws UsernameGeneratorException
      */
     public function make(string $name, string $lastname = null): string
@@ -30,13 +31,13 @@ class Name implements UsernameDriverContract
         $first_lastname = $this->getFirstLastname($lastname_array);
         $first_second_lastname = $this->getFirstLetterSecondLastname($lastname_array);
 
-        return ($first_letter . $first_lastname . $first_second_lastname);
+        return $first_letter.$first_lastname.$first_second_lastname;
     }
 
     /**
-     * Get the first letter of the first name
+     * Get the first letter of the first name.
      *
-     * @param array $firstname
+     * @param  array  $firstname
      * @return string
      */
     protected function getFirstLetterName(array $firstname): string
@@ -45,9 +46,9 @@ class Name implements UsernameDriverContract
     }
 
     /**
-     * Get the first last name
+     * Get the first last name.
      *
-     * @param array $lastname
+     * @param  array  $lastname
      * @return string
      */
     protected function getFirstLastname(array $lastname): string
@@ -56,9 +57,9 @@ class Name implements UsernameDriverContract
     }
 
     /**
-     * Get the first letter of the second last name
+     * Get the first letter of the second last name.
      *
-     * @param array $lastname
+     * @param  array  $lastname
      * @return string
      */
     protected function getFirstLetterSecondLastname(array $lastname): string
@@ -67,10 +68,10 @@ class Name implements UsernameDriverContract
     }
 
     /**
-     * Get the number of words that make up the name
+     * Get the number of words that make up the name.
      *
-     * @param string $name
-     * @param string|null $lastname
+     * @param  string  $name
+     * @param  string|null  $lastname
      * @return int
      */
     protected function getTotalWords(string $name, string $lastname = null): int
@@ -78,11 +79,11 @@ class Name implements UsernameDriverContract
         return $lastname ? count(explode(' ', "{$name} {$lastname}")) : count(explode(' ', $name));
     }
 
-
     /**
-     * Validate that the initial conditions of the name driver
+     * Validate that the initial conditions of the name driver.
      *
      * @param $name
+     *
      * @throws UsernameGeneratorException
      */
     protected function validate(string $name)
@@ -97,9 +98,9 @@ class Name implements UsernameDriverContract
     }
 
     /**
-     * Get valid name as array
+     * Get valid name as array.
      *
-     * @param string $name
+     * @param  string  $name
      * @return array
      */
     protected function getNameAsArray(string $name): array
@@ -115,10 +116,10 @@ class Name implements UsernameDriverContract
     }
 
     /**
-     * Get valid lastname as array
+     * Get valid lastname as array.
      *
-     * @param string $name
-     * @param string|null $lastname
+     * @param  string  $name
+     * @param  string|null  $lastname
      * @return array
      */
     protected function getLastnameAsArray(string $name, ?string $lastname): array

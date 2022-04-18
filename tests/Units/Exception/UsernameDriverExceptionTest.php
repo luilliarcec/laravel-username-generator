@@ -9,7 +9,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameDriverExceptionTest extends TestCase
 {
     /** @test */
-    function an_exception_is_received_when_the_drive_does_not_exist()
+    public function an_exception_is_received_when_the_drive_does_not_exist()
     {
         $this->expectException(UsernameGeneratorException::class);
         $this->expectExceptionMessage("Unable to resolve the driver [random]: Class 'random' not found");
@@ -18,7 +18,7 @@ class UsernameDriverExceptionTest extends TestCase
     }
 
     /** @test */
-    function an_exception_is_received_when_wrong_driver_is_used()
+    public function an_exception_is_received_when_wrong_driver_is_used()
     {
         $this->expectException(UsernameGeneratorException::class);
         $this->expectExceptionMessage('Use the email driver, to generate a username from the email.');

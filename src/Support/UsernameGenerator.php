@@ -15,7 +15,7 @@ use Luilliarcec\LaravelUsernameGenerator\Support\Drivers\Name;
 class UsernameGenerator
 {
     /**
-     * Drivers aliases
+     * Drivers aliases.
      *
      * @var string[]
      */
@@ -25,42 +25,42 @@ class UsernameGenerator
     ];
 
     /**
-     * Model Eloquent use SoftDelete
+     * Model Eloquent use SoftDelete.
      *
      * @var bool
      */
     protected $withTrashed = false;
 
     /**
-     * Model Eloquent with username
+     * Model Eloquent with username.
      *
      * @var string
      */
     protected $model = 'App\Models\User';
 
     /**
-     * Column for Username in database
+     * Column for Username in database.
      *
      * @var string
      */
     protected $column = 'username';
 
     /**
-     * Case string lower or upper
+     * Case string lower or upper.
      *
      * @var string
      */
     protected $case = 'lower';
 
     /**
-     * Driver generator name or email
+     * Driver generator name or email.
      *
      * @var mixed
      */
     protected $driver = 'name';
 
     /**
-     * Indicates if you use softDeletes
+     * Indicates if you use softDeletes.
      *
      * @return $this
      */
@@ -72,7 +72,7 @@ class UsernameGenerator
     }
 
     /**
-     * Indicates if you dont use softDeletes
+     * Indicates if you dont use softDeletes.
      *
      * @return $this
      */
@@ -84,10 +84,10 @@ class UsernameGenerator
     }
 
     /**
-     * Set the model to use for the generation of usernames
+     * Set the model to use for the generation of usernames.
      *
-     * @param string $model
-     * @param string|null $column
+     * @param  string  $model
+     * @param  string|null  $column
      * @return $this
      */
     public function setModel(string $model, string $column = null): UsernameGenerator
@@ -102,9 +102,9 @@ class UsernameGenerator
     }
 
     /**
-     * Set the column to use for the generation of usernames
+     * Set the column to use for the generation of usernames.
      *
-     * @param string $column
+     * @param  string  $column
      * @return $this
      */
     public function setColum(string $column): UsernameGenerator
@@ -115,9 +115,9 @@ class UsernameGenerator
     }
 
     /**
-     * Set the case to use for the generation of usernames
+     * Set the case to use for the generation of usernames.
      *
-     * @param string $case
+     * @param  string  $case
      * @return $this
      */
     public function setCase(string $case): UsernameGenerator
@@ -128,9 +128,9 @@ class UsernameGenerator
     }
 
     /**
-     * Set the driver to use for the generation of usernames
+     * Set the driver to use for the generation of usernames.
      *
-     * @param mixed $driver
+     * @param  mixed  $driver
      * @return $this
      */
     public function setDriver($driver): UsernameGenerator
@@ -141,11 +141,12 @@ class UsernameGenerator
     }
 
     /**
-     * Create the username from the received parameters
+     * Create the username from the received parameters.
      *
-     * @param string $name
-     * @param string|null $lastname
+     * @param  string  $name
+     * @param  string|null  $lastname
      * @return string
+     *
      * @throws UsernameGeneratorException
      */
     public function make(string $name, string $lastname = null): string
@@ -153,14 +154,15 @@ class UsernameGenerator
         $username = $this->getDriver()->make($name, $lastname);
         $username = $this->applyCase($username);
 
-        return $username . $this->getPrefixUsername($username);
+        return $username.$this->getPrefixUsername($username);
     }
 
     /**
-     * Check if the user already exists and return a differentiating number
+     * Check if the user already exists and return a differentiating number.
      *
-     * @param string $username
+     * @param  string  $username
      * @return int|string
+     *
      * @throws UsernameGeneratorException
      */
     protected function getPrefixUsername(string $username)
@@ -193,7 +195,7 @@ class UsernameGenerator
     }
 
     /**
-     * Set the model to use for the generation of usernames
+     * Set the model to use for the generation of usernames.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      *
@@ -214,10 +216,11 @@ class UsernameGenerator
     }
 
     /**
-     * Search for similar or repeated username
+     * Search for similar or repeated username.
      *
-     * @param string $username
+     * @param  string  $username
      * @return mixed
+     *
      * @throws UsernameGeneratorException
      */
     protected function findDuplicateUsername(string $username): \Illuminate\Database\Eloquent\Collection
@@ -234,9 +237,10 @@ class UsernameGenerator
     }
 
     /**
-     * Returns an instance of the model in its configuration file
+     * Returns an instance of the model in its configuration file.
      *
      * @return Model
+     *
      * @throws UsernameGeneratorException
      */
     protected function getModel(): Model
@@ -244,20 +248,21 @@ class UsernameGenerator
         try {
             $model = new $this->model;
 
-            if (!$model instanceof Model) {
-                throw new UsernameGeneratorException('[' . strval($this->model) . '] is not an instance of ' . Model::class, null);
+            if (! $model instanceof Model) {
+                throw new UsernameGeneratorException('['.strval($this->model).'] is not an instance of '.Model::class, null);
             }
 
             return $model;
         } catch (Error $e) {
-            throw new UsernameGeneratorException('Unable to instantiate the model [' . strval($this->model) . ']: ' . str_replace('"', '\'', $e->getMessage()), null, $e);
+            throw new UsernameGeneratorException('Unable to instantiate the model ['.strval($this->model).']: '.str_replace('"', '\'', $e->getMessage()), null, $e);
         }
     }
 
     /**
-     * Get the driver instance
+     * Get the driver instance.
      *
      * @return UsernameDriverContract
+     *
      * @throws UsernameGeneratorException
      */
     protected function getDriver(): UsernameDriverContract
@@ -274,10 +279,11 @@ class UsernameGenerator
     }
 
     /**
-     * Get parsed by the case
+     * Get parsed by the case.
      *
-     * @param string $username
+     * @param  string  $username
      * @return string
+     *
      * @throws UsernameGeneratorException
      */
     protected function applyCase(string $username): string
@@ -285,12 +291,12 @@ class UsernameGenerator
         try {
             return Str::{$this->case}($username);
         } catch (BadMethodCallException $e) {
-            throw new UsernameGeneratorException('Case type not supported [' . strval($this->case) . ']: ' . $e->getMessage(), null, $e);
+            throw new UsernameGeneratorException('Case type not supported ['.strval($this->case).']: '.$e->getMessage(), null, $e);
         }
     }
 
     /**
-     * Resolve Driver by Alias
+     * Resolve Driver by Alias.
      *
      * @return UsernameDriverContract|null
      */
@@ -306,9 +312,10 @@ class UsernameGenerator
     }
 
     /**
-     * Resolve Driver by ClassName
+     * Resolve Driver by ClassName.
      *
      * @return UsernameDriverContract|null
+     *
      * @throws UsernameGeneratorException
      */
     private function resolveDriverByClassName(): ?UsernameDriverContract
@@ -316,15 +323,16 @@ class UsernameGenerator
         try {
             return $this->resolveDriverByObject(new $this->driver);
         } catch (Error $e) {
-            throw new UsernameGeneratorException('Unable to resolve the driver [' . strval($this->driver) . ']: ' . str_replace('"', '\'', $e->getMessage()), null, $e);
+            throw new UsernameGeneratorException('Unable to resolve the driver ['.strval($this->driver).']: '.str_replace('"', '\'', $e->getMessage()), null, $e);
         }
     }
 
     /**
-     * Resolve Driver by Object
+     * Resolve Driver by Object.
      *
-     * @param object|null $driver
+     * @param  object|null  $driver
      * @return UsernameDriverContract|mixed
+     *
      * @throws UsernameGeneratorException
      */
     private function resolveDriverByObject(object $driver = null): UsernameDriverContract
@@ -334,7 +342,7 @@ class UsernameGenerator
         if ($driver instanceof UsernameDriverContract) {
             return $driver;
         } else {
-            throw new UsernameGeneratorException('[' . strval($driver) . '] is not an instance of ' . UsernameDriverContract::class, null);
+            throw new UsernameGeneratorException('['.strval($driver).'] is not an instance of '.UsernameDriverContract::class, null);
         }
     }
 }

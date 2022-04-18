@@ -9,7 +9,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameColumnTest extends TestCase
 {
     /** @test */
-    function make_username_with_different_column()
+    public function make_username_with_different_column()
     {
         Customer::create([
             'name' => 'larcec',

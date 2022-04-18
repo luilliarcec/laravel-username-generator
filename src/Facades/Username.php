@@ -15,7 +15,6 @@ use Luilliarcec\LaravelUsernameGenerator\Support\UsernameGenerator;
  * @method static UsernameGenerator setCase(string $case)
  * @method static UsernameGenerator setDriver($driver)
  *
- *
  * @see UsernameGenerator
  */
 class Username extends Facade
