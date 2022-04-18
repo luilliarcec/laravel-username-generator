@@ -8,7 +8,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameCaseTest extends TestCase
 {
     /** @test */
-    function make_username_lowercase()
+    public function make_username_lowercase()
     {
         $this->assertEquals(
             'larcec',
@@ -18,7 +18,7 @@ class UsernameCaseTest extends TestCase
     }
 
     /** @test */
-    function make_username_uppercase()
+    public function make_username_uppercase()
     {
         $this->assertEquals(
             'LARCEC',

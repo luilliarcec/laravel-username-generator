@@ -10,7 +10,7 @@ class UserQuery extends Builder
     /**
      * Save a new model and return the instance.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      * @return \Illuminate\Database\Eloquent\Model|$this
      */
     public function create(array $attributes = [])

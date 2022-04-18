@@ -9,7 +9,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameThreeNameTest extends TestCase
 {
     /** @test */
-    function make_username()
+    public function make_username()
     {
         $this->assertEquals(
             'larce',
@@ -28,7 +28,7 @@ class UsernameThreeNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_similar_username_without_duplicate()
+    public function make_username_with_similar_username_without_duplicate()
     {
         User::create(['username' => 'larcea']);
 
@@ -36,11 +36,11 @@ class UsernameThreeNameTest extends TestCase
 
         for ($i = 1; $i <= 2; $i++) {
             User::create([
-                'username' => "larce{$i}"
+                'username' => "larce{$i}",
             ]);
 
             User::create([
-                'username' => "larcec{$i}"
+                'username' => "larcec{$i}",
             ]);
         }
 
@@ -56,7 +56,7 @@ class UsernameThreeNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_similars_username_and_duplicate()
+    public function make_username_with_similars_username_and_duplicate()
     {
         User::create(['username' => 'larce']);
 
@@ -64,11 +64,11 @@ class UsernameThreeNameTest extends TestCase
 
         for ($i = 1; $i <= 2; $i++) {
             User::create([
-                'username' => "larce{$i}"
+                'username' => "larce{$i}",
             ]);
 
             User::create([
-                'username' => "larcec{$i}"
+                'username' => "larcec{$i}",
             ]);
         }
 

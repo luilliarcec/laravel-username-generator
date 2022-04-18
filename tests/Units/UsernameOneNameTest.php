@@ -9,7 +9,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameOneNameTest extends TestCase
 {
     /** @test */
-    function make_username()
+    public function make_username()
     {
         $this->assertEquals(
             'luis',
@@ -18,16 +18,16 @@ class UsernameOneNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_similar_username_without_duplicate()
+    public function make_username_with_similar_username_without_duplicate()
     {
         for ($i = 1; $i <= 5; $i++) {
             User::create([
-                'username' => "luis{$i}"
+                'username' => "luis{$i}",
             ]);
         }
 
         User::create([
-            'username' => 'luisamaria'
+            'username' => 'luisamaria',
         ]);
 
         $this->assertEquals(
@@ -37,16 +37,16 @@ class UsernameOneNameTest extends TestCase
     }
 
     /** @test */
-    function make_username_with_similars_username_and_duplicate()
+    public function make_username_with_similars_username_and_duplicate()
     {
         for ($i = 1; $i <= 6; $i++) {
             User::create([
-                'username' => "luis{$i}"
+                'username' => "luis{$i}",
             ]);
         }
 
         User::create([
-            'username' => 'luis'
+            'username' => 'luis',
         ]);
 
         $this->assertEquals(

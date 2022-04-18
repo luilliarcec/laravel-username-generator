@@ -8,7 +8,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameManyNameTest extends TestCase
 {
     /** @test */
-    function the_username_is_generated_with_the_full_name_and_lastname_ignoring_the_surplus()
+    public function the_username_is_generated_with_the_full_name_and_lastname_ignoring_the_surplus()
     {
         $this->assertEquals(
             'larcec',
@@ -17,7 +17,7 @@ class UsernameManyNameTest extends TestCase
     }
 
     /** @test */
-    function the_username_is_generated_with_many_arguments()
+    public function the_username_is_generated_with_many_arguments()
     {
         $this->assertEquals(
             'larcec',
@@ -36,7 +36,7 @@ class UsernameManyNameTest extends TestCase
     }
 
     /** @test */
-    function the_username_is_generated_with_the_three_words_in_name_and_lastname_ignoring_the_surplus()
+    public function the_username_is_generated_with_the_three_words_in_name_and_lastname_ignoring_the_surplus()
     {
         $this->assertEquals(
             'larcec',
