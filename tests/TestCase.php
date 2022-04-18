@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Luilliarcec\LaravelUsernameGenerator\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,7 @@ class TestCase extends Orchestra
     use RefreshDatabase;
 
     /**
-     * Determines starts with an initial configuration from the environment
+     * Determines starts with an initial configuration from the environment.
      *
      * @var bool
      */
@@ -29,14 +28,13 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     /**
      * Get package providers.
      *
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app): array
@@ -47,8 +45,7 @@ class TestCase extends Orchestra
     /**
      * Define environment setup.
      *
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -64,7 +61,7 @@ class TestCase extends Orchestra
         $app['config']->set('database.default', 'testdb');
         $app['config']->set('database.connections.testdb', [
             'driver' => 'sqlite',
-            'database' => ':memory:'
+            'database' => ':memory:',
         ]);
     }
 }

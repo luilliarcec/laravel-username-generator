@@ -10,7 +10,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameDriverTest extends TestCase
 {
     /** @test */
-    function make_username_by_email()
+    public function make_username_by_email()
     {
         $this->assertEquals(
             'larcec',
@@ -20,7 +20,7 @@ class UsernameDriverTest extends TestCase
     }
 
     /** @test */
-    function make_username_by_name()
+    public function make_username_by_name()
     {
         $this->assertEquals(
             'larcec',
@@ -30,7 +30,7 @@ class UsernameDriverTest extends TestCase
     }
 
     /** @test */
-    function make_username_by_email_class_instance()
+    public function make_username_by_email_class_instance()
     {
         $this->assertEquals(
             'larcec',
@@ -40,7 +40,7 @@ class UsernameDriverTest extends TestCase
     }
 
     /** @test */
-    function make_username_by_email_class_name()
+    public function make_username_by_email_class_name()
     {
         $this->assertEquals(
             'larcec',

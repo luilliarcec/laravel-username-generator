@@ -10,10 +10,10 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameModelTest extends TestCase
 {
     /** @test */
-    function make_username_in_different_model()
+    public function make_username_in_different_model()
     {
         User::create([
-            'username' => 'larcec'
+            'username' => 'larcec',
         ]);
 
         $this->assertEquals(

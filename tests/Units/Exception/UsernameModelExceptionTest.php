@@ -9,7 +9,7 @@ use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 class UsernameModelExceptionTest extends TestCase
 {
     /** @test */
-    function an_exception_is_received_when_the_model_does_not_exist()
+    public function an_exception_is_received_when_the_model_does_not_exist()
     {
         $this->expectException(UsernameGeneratorException::class);
         $this->expectExceptionMessage(
@@ -20,7 +20,7 @@ class UsernameModelExceptionTest extends TestCase
     }
 
     /** @test */
-    function an_exception_is_received_when_the_model_does_not_instance_of_eloquent_model()
+    public function an_exception_is_received_when_the_model_does_not_instance_of_eloquent_model()
     {
         $this->expectException(UsernameGeneratorException::class);
         $this->expectExceptionMessage(

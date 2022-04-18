@@ -12,7 +12,7 @@ class UsernameWithDefaultValuesTest extends TestCase
     protected $withInitialConfigUsername = false;
 
     /** @test */
-    function an_exception_is_received_when_the_default_model_does_not_exist()
+    public function an_exception_is_received_when_the_default_model_does_not_exist()
     {
         $this->expectException(UsernameGeneratorException::class);
         $this->expectExceptionMessage(
@@ -23,7 +23,7 @@ class UsernameWithDefaultValuesTest extends TestCase
     }
 
     /** @test */
-    function make_username()
+    public function make_username()
     {
         $this->assertEquals(
             'larcec',

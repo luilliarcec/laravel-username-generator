@@ -3,17 +3,16 @@
 namespace Luilliarcec\LaravelUsernameGenerator\Tests\Units;
 
 use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use Luilliarcec\LaravelUsernameGenerator\Tests\Models\Customer;
 use Luilliarcec\LaravelUsernameGenerator\Tests\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\Tests\TestCase;
 
 class UsernameSoftdeleteTest extends TestCase
 {
     /** @test */
-    function make_username_with_trashed()
+    public function make_username_with_trashed()
     {
         $user = User::create([
-            'username' => 'larcec'
+            'username' => 'larcec',
         ]);
 
         $user->delete();
@@ -32,10 +31,10 @@ class UsernameSoftdeleteTest extends TestCase
     }
 
     /** @test */
-    function make_username_without_trashed()
+    public function make_username_without_trashed()
     {
         $user = User::create([
-            'username' => 'larcec'
+            'username' => 'larcec',
         ]);
 
         $user->delete();
