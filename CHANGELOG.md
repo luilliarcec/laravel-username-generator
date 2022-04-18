@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
+## 3.0.0 - 2022-04-18
+
+- Support only for the latest version of Laravel
+
 ## 2.2.0 - 2021-07-19
 
 - Default values were configured to the generator properties
