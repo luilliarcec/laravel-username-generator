@@ -19,11 +19,10 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^8.0",
         "laravel/framework": "^9.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.18",
         "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "^9.0"
     },
