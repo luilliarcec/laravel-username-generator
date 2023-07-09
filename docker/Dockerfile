@@ -15,7 +15,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ## Install application dependencies
-RUN composer install --optimize-autoloader --no-dev
+RUN composer update --optimize-autoloader
 
 # Run tests
 CMD ./vendor/bin/phpunit
