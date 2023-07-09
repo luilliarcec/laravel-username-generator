@@ -10,13 +10,6 @@ WORKDIR /app
 ## Copy Laravel application files
 COPY . ./
 
-## Install dependencies
-#RUN apk --update --no-cache add \
-#    mysql-client \
-
-## Install PHP extensions
-#RUN docker-php-ext-install pdo_mysql
-
 # Install Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
