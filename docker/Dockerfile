@@ -8,7 +8,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 ## Copy Laravel application files
-COPY . ./
+COPY . .
 
 # Install Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
