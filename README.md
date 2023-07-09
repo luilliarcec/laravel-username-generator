@@ -1,6 +1,6 @@
 # Laravel Username Generator
 
-![Run Tests](https://github.com/luilliarcec/laravel-username-generator/workflows/Run%20Tests/badge.svg?branch=master)
+[![run-tests](https://github.com/luilliarcec/laravel-username-generator/actions/workflows/run-tests.yml/badge.svg)](https://github.com/luilliarcec/laravel-username-generator/actions/workflows/run-tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
 [![Quality Score](https://img.shields.io/scrutinizer/g/luilliarcec/laravel-username-generator)](https://scrutinizer-ci.com/g/luilliarcec/laravel-username-generator)
 [![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-username-generator)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
@@ -239,6 +239,12 @@ $username = Username::make('larcec@test.com'); // larcec
 
 ``` bash
 composer test
+```
+
+or
+
+``` bash
+docker-compose up
 ```
 
 ## Changelog
