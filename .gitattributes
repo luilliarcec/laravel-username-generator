@@ -10,3 +10,5 @@
 /tests              export-ignore
 /.editorconfig      export-ignore
 /.php_cs            export-ignore
+/docker             export-ignore
+/docker-compose.yml export-ignore

@@ -1,0 +1,10 @@
+version: "3.6"
+
+services:
+    package:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        container_name: laravel-username-generator
+        volumes:
+            - ".:/app"
