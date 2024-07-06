@@ -2,13 +2,19 @@
 
 namespace Tests\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Luilliarcec\LaravelUsernameGenerator\Concerns\HasUsername;
+use Tests\database\factories\CustomerFactory;
 
 class Customer extends Model
 {
-    use Notifiable, HasUsername;
+    use Notifiable;
+    use SoftDeletes;
+    use HasFactory;
+    use HasUsername;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +35,16 @@ class Customer extends Model
     protected function getName(): string
     {
         return $this->firts_name;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return CustomerFactory
+     */
+    protected static function newFactory(): CustomerFactory
+    {
+        return CustomerFactory::new();
     }
 
     /**

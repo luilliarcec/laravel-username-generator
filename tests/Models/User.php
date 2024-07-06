@@ -2,15 +2,19 @@
 
 namespace Tests\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Luilliarcec\LaravelUsernameGenerator\Concerns\HasUsername;
+use Tests\database\factories\UserFactory;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes, HasUsername;
+    use Notifiable;
+    use SoftDeletes;
+    use HasUsername;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -42,6 +46,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return UserFactory
+     */
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 
     /**
      * The name/email or value with which the username will be generated.
