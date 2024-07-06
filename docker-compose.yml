@@ -1,10 +1,36 @@
-version: "3.6"
-
 services:
-    package:
+    app:
         build:
             context: .
             dockerfile: docker/Dockerfile
         container_name: laravel-username-generator
         volumes:
-            - ".:/app"
+            - ".:/var/www/html"
+        depends_on:
+            - mysql
+        networks:
+            - laravel-username-generator-net
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        container_name: laravel-username-generator-db
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: 'testing'
+            MYSQL_USER: 'laravel'
+            MYSQL_PASSWORD: 'laravel'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+            retries: 3
+            timeout: 5s
+        networks:
+            - laravel-username-generator-net
+networks:
+    laravel-username-generator-net:
+        driver: bridge

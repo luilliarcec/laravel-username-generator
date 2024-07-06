@@ -237,14 +237,10 @@ $username = Username::make('larcec@test.com'); // larcec
 
 ## Testing
 
-``` bash
-composer test
-```
-
-or
+Can use docker-compose to run
 
 ``` bash
-docker-compose up
+docker-compose exec app composer test
 ```
 
 ## Changelog
