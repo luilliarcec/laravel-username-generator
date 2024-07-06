@@ -69,7 +69,7 @@ trait HasUsername
         $username = $driver->make($this->getName(), $this->getLastName());
         $username = $this->setUsernameCase($username);
 
-        return $this->setPrefixUsername($username);
+        return $this->setSuffixUsername($username);
     }
 
     /**
@@ -85,14 +85,14 @@ trait HasUsername
     }
 
     /**
-     * If the username is duplicate, a numeric prefix is set.
+     * If the username is duplicate, a numeric suffix is set.
      *
      * @param  string  $username
      *
      * @return string
      *
      */
-    protected function setPrefixUsername(string $username): string
+    protected function setSuffixUsername(string $username): string
     {
         $length = strlen($username);
         $duplicated = $this->getDuplicateUsername($username);
@@ -101,10 +101,10 @@ trait HasUsername
             return $username;
         }
 
-        $prefix = 1;
-        $prefix += intval(substr($duplicated->{$this->getUsernameColumn()}, $length));
+        $suffix = 1;
+        $suffix += intval(substr($duplicated->{$this->getUsernameColumn()}, $length));
 
-        return "{$username}{$prefix}";
+        return "{$username}{$suffix}";
     }
 
     /**
