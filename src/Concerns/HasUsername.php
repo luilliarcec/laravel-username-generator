@@ -26,6 +26,18 @@ trait HasUsername
     protected abstract function getName(): string;
 
     /**
+     * Boot the has username trait for a model.
+     *
+     * @return void
+     */
+    public static function bootHasUsername(): void
+    {
+        static::creating(function (self $model) {
+            $model->setAttribute($model->getUsernameColumn(), $model->getUsername());
+        });
+    }
+
+    /**
      * Driver to use to generate the username.
      *
      * @return DriverContract
