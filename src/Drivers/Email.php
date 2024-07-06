@@ -1,11 +1,11 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Support\Drivers;
+namespace Luilliarcec\LaravelUsernameGenerator\Drivers;
 
-use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
+use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
-class Email implements UsernameDriverContract
+class Email implements DriverContract
 {
     /**
      * Create the username from the received parameters.

@@ -1,11 +1,11 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Support\Drivers;
+namespace Luilliarcec\LaravelUsernameGenerator\Drivers;
 
-use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
+use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
-class Name implements UsernameDriverContract
+class Name implements DriverContract
 {
     /**
      * Create the username from the received parameters.
@@ -82,11 +82,11 @@ class Name implements UsernameDriverContract
     /**
      * Validate that the initial conditions of the name driver.
      *
-     * @param $name
+     * @param  string  $name
      *
      * @throws UsernameGeneratorException
      */
-    protected function validate(string $name)
+    protected function validate(string $name): void
     {
         if (filter_var($name, FILTER_VALIDATE_EMAIL)) {
             throw new UsernameGeneratorException('Use the email driver, to generate a username from the email.');
@@ -130,7 +130,7 @@ class Name implements UsernameDriverContract
         $lastname_array = $lastname ? explode(' ', $lastname) : [];
 
         if ($count_name > 2) {
-            $lastname_array = array_slice($name_array, (($count_name > 4 ? 4 : $count_name) - 2), 2);
+            $lastname_array = array_slice($name_array, ((min($count_name, 4)) - 2), 2);
         } elseif (count($lastname_array) == 0) {
             $lastname_array = $count_name > 1 ? [$name_array[1]] : [];
         }
