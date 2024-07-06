@@ -131,7 +131,7 @@ trait HasUsername
     protected function getDuplicateUsername(string $username): ?static
     {
         return $this->getUsernameQuery()
-            ->where($this->getUsernameColumn(), $username)
+            ->where($this->getUsernameColumn(), 'regexp', "{$username}[0-9]*$")
             ->orderByDesc($this->getUsernameColumn())
             ->first([$this->getUsernameColumn()]);
     }
