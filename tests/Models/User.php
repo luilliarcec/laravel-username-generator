@@ -1,14 +1,16 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Tests\Models;
+namespace Tests\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Luilliarcec\LaravelUsernameGenerator\Concerns\HasUsername;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, HasUsername;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name',
+        'username',
+        'email',
+        'password',
     ];
 
     /**
@@ -25,7 +30,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -41,10 +47,30 @@ class User extends Authenticatable
      * Create a new Eloquent query builder for the model.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder|static
+     * @return Builder|static
      */
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): Builder|UserQuery|static
     {
         return new UserQuery($query);
+    }
+
+    /**
+     * The name/email or value with which the username will be generated.
+     *
+     * @return string
+     */
+    protected function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * The column where the username will be stored.
+     *
+     * @return string
+     */
+    protected function getUsernameColumn(): string
+    {
+        return 'username';
     }
 }

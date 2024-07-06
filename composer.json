@@ -36,7 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Luilliarcec\\LaravelUsernameGenerator\\Tests\\": "tests"
+            "Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +54,7 @@
         "laravel": {
             "providers": [
                 "Luilliarcec\\LaravelUsernameGenerator\\UsernameGeneratorServiceProvider"
-            ],
-            "aliases": {
-                "Username": "Luilliarcec\\LaravelUsernameGenerator\\Facades\\Username"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

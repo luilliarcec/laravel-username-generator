@@ -1,6 +1,6 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Tests\Models;
+namespace Tests\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
