@@ -16,7 +16,8 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'username',
     ];
 
@@ -27,7 +28,17 @@ class Customer extends Model
      */
     protected function getName(): string
     {
-        return $this->name;
+        return $this->firts_name;
+    }
+
+    /**
+     * If the "Name" driver is used and the record stores the last name, separately, the value can be returned here.
+     *
+     * @return string|null
+     */
+    protected function getLastName(): ?string
+    {
+        return $this->last_name;
     }
 
     /**
@@ -38,5 +49,17 @@ class Customer extends Model
     protected function getUsernameColumn(): string
     {
         return 'username';
+    }
+
+    /**
+     * Applies text case to username, by default lowercase.
+     *
+     * @param  string  $username
+     *
+     * @return string
+     */
+    protected function setUsernameCase(string $username): string
+    {
+        return mb_strtoupper($username, 'UTF-8');
     }
 }
