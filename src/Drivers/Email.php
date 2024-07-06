@@ -26,6 +26,6 @@ class Email implements DriverContract
 
         $username = explode('@', $name);
 
-        return $username[0];
+        return mb_strtolower(trim($username[0]));
     }
 }

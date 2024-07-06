@@ -21,7 +21,7 @@ class Name implements DriverContract
         $this->validate($name);
 
         if ($this->getTotalWords($name, $lastname) == 1) {
-            return $name;
+            return mb_strtolower($name, 'UTF-8');
         }
 
         $lastname_array = $this->getLastnameAsArray($name, $lastname);
@@ -31,7 +31,7 @@ class Name implements DriverContract
         $first_lastname = $this->getFirstLastname($lastname_array);
         $first_second_lastname = $this->getFirstLetterSecondLastname($lastname_array);
 
-        return $first_letter.$first_lastname.$first_second_lastname;
+        return mb_strtolower($first_letter.$first_lastname.$first_second_lastname, 'UTF-8');
     }
 
     /**
