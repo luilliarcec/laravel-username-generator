@@ -1,24 +1,12 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Tests;
+namespace Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use Luilliarcec\LaravelUsernameGenerator\Tests\Models\User;
 use Luilliarcec\LaravelUsernameGenerator\UsernameGeneratorServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    use RefreshDatabase;
-
-    /**
-     * Determines starts with an initial configuration from the environment.
-     *
-     * @var bool
-     */
-    protected $withInitialConfigUsername = true;
-
     /**
      * Setup the test environment.
      *
@@ -39,29 +27,8 @@ class TestCase extends Orchestra
      */
     protected function getPackageProviders($app): array
     {
-        return [UsernameGeneratorServiceProvider::class];
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        if ($this->withInitialConfigUsername) {
-            Username::setModel(User::class)
-                ->setColum('username')
-                ->setDriver('name')
-                ->setCase('lower');
-        }
-
-        /** Database */
-        $app['config']->set('database.default', 'testdb');
-        $app['config']->set('database.connections.testdb', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-        ]);
+        return [
+            UsernameGeneratorServiceProvider::class,
+        ];
     }
 }

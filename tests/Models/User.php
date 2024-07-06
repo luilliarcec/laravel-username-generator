@@ -44,17 +44,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Create a new Eloquent query builder for the model.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return Builder|static
-     */
-    public function newEloquentBuilder($query): Builder|UserQuery|static
-    {
-        return new UserQuery($query);
-    }
-
-    /**
      * The name/email or value with which the username will be generated.
      *
      * @return string
