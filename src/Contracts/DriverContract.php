@@ -4,7 +4,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Contracts;
 
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
-interface UsernameDriverContract
+interface DriverContract
 {
     /**
      * Create the username from the received parameters.
