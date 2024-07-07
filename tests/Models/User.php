@@ -1,14 +1,20 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Tests\Models;
+namespace Tests\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Luilliarcec\LaravelUsernameGenerator\Concerns\HasUsername;
+use Tests\database\factories\UserFactory;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use HasFactory;
+    use HasUsername;
+    use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,35 +22,32 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name',
+        'username',
+        'email',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * Create a new factory instance for the model.
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * Create a new Eloquent query builder for the model.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder|static
-     */
-    public function newEloquentBuilder($query)
+    protected static function newFactory(): UserFactory
     {
-        return new UserQuery($query);
+        return UserFactory::new();
+    }
+
+    /**
+     * The name/email or value with which the username will be generated.
+     */
+    protected function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * The column where the username will be stored.
+     */
+    protected function getUsernameColumn(): string
+    {
+        return 'username';
     }
 }

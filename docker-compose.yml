@@ -1,10 +1,68 @@
-version: "3.6"
-
 services:
-    package:
+    app:
         build:
             context: .
             dockerfile: docker/Dockerfile
         container_name: laravel-username-generator
         volumes:
-            - ".:/app"
+            - ".:/var/www/html"
+        depends_on:
+            - mysql
+        networks:
+            - laravel-username-generator-net
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        container_name: laravel-username-generator-mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: 'testing'
+            MYSQL_USER: 'laravel'
+            MYSQL_PASSWORD: 'laravel'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+            retries: 3
+            timeout: 5s
+        networks:
+            - laravel-username-generator-net
+    pgsql:
+        image: 'postgres:15'
+        container_name: laravel-username-generator-pgsql
+        ports:
+            - "5432:5432"
+        environment:
+            PGPASSWORD: 'laravel'
+            POSTGRES_DB: 'testing'
+            POSTGRES_USER: 'laravel'
+            POSTGRES_PASSWORD: 'laravel'
+        networks:
+            - laravel-username-generator-net
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "testing", "-U", "laravel" ]
+            retries: 3
+            timeout: 5s
+    sqlsrv:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        container_name: laravel-username-generator-sqlsrv
+        command: /bin/bash ./entrypoint.sh
+        environment:
+            ACCEPT_EULA: 'Y'
+            MSSQL_PID: 'Developer'
+            MSSQL_SA_PASSWORD: 'SQL.Server.2019'
+        ports:
+            - "1433:1433"
+        volumes:
+            - ./docker/sqlsrv/entrypoint.sh:/entrypoint.sh
+            - ./docker/sqlsrv/initdb.sh:/initdb.sh
+            - ./docker/sqlsrv/initdb.sql:/initdb.sql
+        networks:
+            - laravel-username-generator-net
+networks:
+    laravel-username-generator-net:
+        driver: bridge

@@ -1,22 +1,21 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Support\Drivers;
+namespace Luilliarcec\LaravelUsernameGenerator\Drivers;
 
-use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
+use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
-class Email implements UsernameDriverContract
+class Email implements DriverContract
 {
     /**
      * Create the username from the received parameters.
      *
      * @param  string  $name  Firstname or Email
      * @param  string|null  $lastname  Lastname
-     * @return string
      *
      * @throws UsernameGeneratorException
      */
-    public function make(string $name, string $lastname = null): string
+    public function make(string $name, ?string $lastname = null): string
     {
         if (! filter_var($name, FILTER_VALIDATE_EMAIL)) {
             throw new UsernameGeneratorException(
@@ -26,6 +25,6 @@ class Email implements UsernameDriverContract
 
         $username = explode('@', $name);
 
-        return $username[0];
+        return mb_strtolower(trim($username[0]));
     }
 }

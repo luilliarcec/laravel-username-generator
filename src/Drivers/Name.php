@@ -1,27 +1,26 @@
 <?php
 
-namespace Luilliarcec\LaravelUsernameGenerator\Support\Drivers;
+namespace Luilliarcec\LaravelUsernameGenerator\Drivers;
 
-use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
+use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
-class Name implements UsernameDriverContract
+class Name implements DriverContract
 {
     /**
      * Create the username from the received parameters.
      *
      * @param  string  $name  Firstname or Email
      * @param  string|null  $lastname  Lastname
-     * @return string
      *
      * @throws UsernameGeneratorException
      */
-    public function make(string $name, string $lastname = null): string
+    public function make(string $name, ?string $lastname = null): string
     {
         $this->validate($name);
 
         if ($this->getTotalWords($name, $lastname) == 1) {
-            return $name;
+            return mb_strtolower($name, 'UTF-8');
         }
 
         $lastname_array = $this->getLastnameAsArray($name, $lastname);
@@ -31,14 +30,11 @@ class Name implements UsernameDriverContract
         $first_lastname = $this->getFirstLastname($lastname_array);
         $first_second_lastname = $this->getFirstLetterSecondLastname($lastname_array);
 
-        return $first_letter.$first_lastname.$first_second_lastname;
+        return mb_strtolower($first_letter.$first_lastname.$first_second_lastname, 'UTF-8');
     }
 
     /**
      * Get the first letter of the first name.
-     *
-     * @param  array  $firstname
-     * @return string
      */
     protected function getFirstLetterName(array $firstname): string
     {
@@ -47,9 +43,6 @@ class Name implements UsernameDriverContract
 
     /**
      * Get the first last name.
-     *
-     * @param  array  $lastname
-     * @return string
      */
     protected function getFirstLastname(array $lastname): string
     {
@@ -58,9 +51,6 @@ class Name implements UsernameDriverContract
 
     /**
      * Get the first letter of the second last name.
-     *
-     * @param  array  $lastname
-     * @return string
      */
     protected function getFirstLetterSecondLastname(array $lastname): string
     {
@@ -69,12 +59,8 @@ class Name implements UsernameDriverContract
 
     /**
      * Get the number of words that make up the name.
-     *
-     * @param  string  $name
-     * @param  string|null  $lastname
-     * @return int
      */
-    protected function getTotalWords(string $name, string $lastname = null): int
+    protected function getTotalWords(string $name, ?string $lastname = null): int
     {
         return $lastname ? count(explode(' ', "{$name} {$lastname}")) : count(explode(' ', $name));
     }
@@ -82,11 +68,10 @@ class Name implements UsernameDriverContract
     /**
      * Validate that the initial conditions of the name driver.
      *
-     * @param $name
      *
      * @throws UsernameGeneratorException
      */
-    protected function validate(string $name)
+    protected function validate(string $name): void
     {
         if (filter_var($name, FILTER_VALIDATE_EMAIL)) {
             throw new UsernameGeneratorException('Use the email driver, to generate a username from the email.');
@@ -99,9 +84,6 @@ class Name implements UsernameDriverContract
 
     /**
      * Get valid name as array.
-     *
-     * @param  string  $name
-     * @return array
      */
     protected function getNameAsArray(string $name): array
     {
@@ -117,10 +99,6 @@ class Name implements UsernameDriverContract
 
     /**
      * Get valid lastname as array.
-     *
-     * @param  string  $name
-     * @param  string|null  $lastname
-     * @return array
      */
     protected function getLastnameAsArray(string $name, ?string $lastname): array
     {
@@ -130,7 +108,7 @@ class Name implements UsernameDriverContract
         $lastname_array = $lastname ? explode(' ', $lastname) : [];
 
         if ($count_name > 2) {
-            $lastname_array = array_slice($name_array, (($count_name > 4 ? 4 : $count_name) - 2), 2);
+            $lastname_array = array_slice($name_array, ((min($count_name, 4)) - 2), 2);
         } elseif (count($lastname_array) == 0) {
             $lastname_array = $count_name > 1 ? [$name_array[1]] : [];
         }
