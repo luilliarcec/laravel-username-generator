@@ -9,10 +9,12 @@ WORKDIR /var/www/html/
 
 # Install dependencies
 RUN apk --update add \
-    mysql-client
+    mysql-client \
+    libpq-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-configure pdo_pgsql
+RUN docker-php-ext-install pdo_mysql pdo_pgsql
 
 ## Copy Laravel application files
 COPY . .

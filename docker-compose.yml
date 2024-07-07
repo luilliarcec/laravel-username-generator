@@ -12,7 +12,7 @@ services:
             - laravel-username-generator-net
     mysql:
         image: 'mysql/mysql-server:8.0'
-        container_name: laravel-username-generator-db
+        container_name: laravel-username-generator-mysql
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -31,6 +31,22 @@ services:
             timeout: 5s
         networks:
             - laravel-username-generator-net
+    pgsql:
+        image: 'postgres:15'
+        container_name: laravel-username-generator-pgsql
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: 'laravel'
+            POSTGRES_DB: 'testing'
+            POSTGRES_USER: 'laravel'
+            POSTGRES_PASSWORD: 'laravel'
+        networks:
+            - laravel-username-generator-net
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "testing", "-U", "laravel" ]
+            retries: 3
+            timeout: 5s
 networks:
     laravel-username-generator-net:
         driver: bridge
