@@ -68,19 +68,19 @@ trait HasUsername
         $driver = $this->getUsernameDriver();
 
         $username = $driver->make($this->getName(), $this->getLastName());
-        $username = $this->setUsernameCase($username);
+        $username = $this->transformUsername($username);
 
         return $this->setSuffixUsername($username);
     }
 
     /**
-     * Applies text case to username, by default lowercase.
+     * Apply transformation code to the username, by default it is transformed to lower case.
      *
      * @param  string  $username
      *
      * @return string
      */
-    protected function setUsernameCase(string $username): string
+    protected function transformUsername(string $username): string
     {
         return mb_strtolower($username, 'UTF-8');
     }

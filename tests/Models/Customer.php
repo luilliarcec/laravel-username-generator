@@ -68,13 +68,13 @@ class Customer extends Model
     }
 
     /**
-     * Applies text case to username, by default lowercase.
+     * Apply transformation code to the username, by default it is transformed to lower case.
      *
      * @param  string  $username
      *
      * @return string
      */
-    protected function setUsernameCase(string $username): string
+    protected function transformUsername(string $username): string
     {
         return mb_strtoupper($username, 'UTF-8');
     }

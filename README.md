@@ -8,7 +8,7 @@
 
 <a href="https://www.buymeacoffee.com/luilliarcec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-Laravel Username Generator is a package that allows the versatile generation of user names, has a simple integration
+Laravel Username Generator is a package that allows the versatile generation of usernames, has a simple integration
 with Laravel.
 
 You can generate from the name of the user, taking into account that you do not use more than two names and two surnames
@@ -18,7 +18,7 @@ in total. It can also be generated from the user's email.
 
 You can install the package via composer:
 
-### We have improved many things so we have decided to launch a new version 2.0.
+### Version 5 was rewritten to be supported as a usable trait within your models.
 
 ### Please follow this guide if you are going to update to the new version.
 
@@ -26,82 +26,106 @@ You can install the package via composer:
 composer require luilliarcec/laravel-username-generator
 ```
 
-Now in AppServiceProvider, add the basic or default configuration to use.:
-
-```php
-namespace App\Providers;
-
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use App\Models\User;
-use Illuminate\Support\ServiceProvider;
-
-class AppServiceProvider extends ServiceProvider
-{
-    public function boot()
-    {
-        Username::withTrashed()
-            ->setDriver('name') // By default 'name' is used so you can omit this if you like.
-            ->setCase('lower') // By default 'lower' is used so you can omit this if you like.
-            ->setModel(User::class) // By default 'App\Models\User' is used so you can omit this if you like.
-            ->setColum('username'); // By default 'username' is used so you can omit this if you like.
-            
-        // If you want to use the defaults, it would look like this.
-        
-        Username::withTrashed()
-            // If you are using another namespace for your User model, set it here.
-            ->setModel('App\Entities\User');
-    }
-}
-```
-
-Note that now you are free to configure as you like from the Facade. You also have the possibility to tell the package,
-to check with deletions in the model provided.
-
 ## Upgrade
 
 Upgrading to the new version is as easy as:
 
 - Update package
-- Delete the configuration file
-- And set the configuration from your AppServiceProvider.
+- Delete the old configuration from your AppServiceProvider.
 
 ## Usage
 
-Once configured, you can use the Facade `Luilliarcec\LaravelUsernameGenerator\Facades\Username` in the following way:
+Add the Trait `Luilliarcec\LaravelUsernameGenerator\Concerns\HasUsername` to your Eloquent models in the
+use username.
+
+Remember that you must have a field in your table where you can store the `username`, preferably it is recommended
+make this field `unique`.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
+use Illuminate\Database\Eloquent\Model;
+use Luilliarcec\LaravelUsernameGenerator\Concerns\HasUsername;
 
-$username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
+class User extends Model
+{
+    use HasUsername;
+}
 ```
 
-If you want to change the type of case I can do it online, for example:
+Within your model, you configure the username generator options.
+
+By default, you must configure the field where the username will be stored and searched:
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-
-$username = Username::setCase('upper')->make('Luis Andrés Arce Cárdenas'); // LARCEC
+protected function getUsernameColumn(): string
+{
+    return 'my_username_column';
+}
 ```
 
-This will implicitly take the settings from your `AppServiceProvider` and replace it with the one you provide inline.
+In addition to where the value will be extracted to generate the username:
 
-## New Features
+```php
+protected function getName(): string
+{
+    // This is the value, not the field name.
+    return $this->name;
+}
+```
 
-One of the features that I liked to add the most is the possibility that you can create your own driver.
+**Remember the value of name cannot be empty `''`, this will throw an exception, just like using a driver 
+incorrect for an incorrect value, for example using the `Name` driver to generate usernames from an email.**
+
+With this, your model will now be configured to work with usernames.
+
+### Additional settings
+
+If your model stores the first and last name separately, you can set the `getLastName` function, so that it returns
+the value of your model's last name.
+
+```php
+protected function getLastName(): ?string
+{
+    // This is the value, not the field name.
+    return $this->last_name;
+}
+```
+
+By default, the trait uses the driver `Luilliarcec\Laravel Username Generator\Drivers\Name`. This is modifiable
+overriding the `getUsernameDriver` method.
+
+```php
+use Luilliarcec\LaravelUsernameGenerator\Drivers\Email;
+
+protected function getUsernameDriver(): DriverContract
+{
+    return new Email();
+}
+```
+
+By default, usernames are converted to lowercase. But if you want, convert them to uppercase or apply
+some logic or add a prefix or suffix, before the repeat search is processed, you can use the function
+`transformUsername`, this function receives the username as a parameter and returns a string.
+
+```php
+protected function transformUsername(string $username): string
+{
+    return mb_strtoupper($username, 'UTF-8');
+}
+```
 
 #### Support for customs drivers
 
 You can create a class that implement the
-interface `Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract`
+interface `Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract`
 and inside that class you can write all the logic to generate your username, remember to implement the make method that
 will be responsible for returning the username, for example:
 
 ```php
 namespace App\Support\Username\Drivers;
 
-use Luilliarcec\LaravelUsernameGenerator\Contracts\UsernameDriverContract;
+use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 
-class CustomDriver implements UsernameDriverContract
+class CustomDriver implements DriverContract
 {
     public function make(string $name, string $lastname = null): string
     {
@@ -110,91 +134,32 @@ class CustomDriver implements UsernameDriverContract
 }
 ```
 
-Usage
-
-```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use App\Support\Username\Drivers\CustomDriver;
-
-$username = Username::setDriver(new CustomDriver())->make('Luis Andrés Arce Cárdenas');
-
-// Or
-
-$username = Username::setDriver(CustomDriver::class)->make('Luis Andrés Arce Cárdenas');
-```
-
-#### Support for multiple models
-
-That's right, you now have the ability to generate usernames for different models. Just pass the space name of your
-model to the setModel function and you can even s et the column to use to check for existing usernames, for example:
-
-```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use App\Models\CustomModel;
-
-$username = Username::setModel(CustomModel::class, 'other_column')->make('Luis Andrés Arce Cárdenas');
-
-// or
-
-$username = Username::setModel(CustomModel::class)->setColum('other_column')->make('Luis Andrés Arce Cárdenas');
-```
-
-#### Support for softdelete
-
-And last but not least, if you want your generator to verify usernames with deleted users, now you can with the
-withTrashed function.
-
-```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use App\Models\User;
-
-Username::withTrashed()
-            ->setDriver('name')
-            ->setCase('lower')
-            ->setModel(User::class)
-            ->setColum('username');
-```
-
-But if you don't use softDelete or don't want to check with deleted users, use the withoutTrashed method. 
-(By default this method is already applied)
-
-```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-use App\Models\User;
-
-Username::withoutTrashed()
-            ->setDriver('name')
-            ->setCase('lower')
-            ->setModel(User::class)
-            ->setColum('username');
-```
-
 ## ¡Important!
 
 Remember that like previous versions it is very important that you provide an Eloquent Model together with the column
 that stores the username. This is so that the package provides you with an alternate username if it is already in use.
 
-Skipping this step will cause an exception `UsernameGeneratorException` or that the genarator does not work properly
+Skipping this step will cause an exception `UsernameGeneratorException` or that the generator does not work properly
 
 ## Examples
 
 Assume you have a user with the username `larcec`
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
+$model = User::create(['name' => 'Luis Andrés Arce Cárdenas']);
 
-$username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
+$model->username; // larcec
 ```
 
 When using the package to generate the username, it will search thanks to Eloquent, in the database and will buy if that
-username already exists, if it exists, a pefix will be added to the username.
+username already exists, if it exists, a suffix will be added to the username.
 
 The result would be as follows.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
+$model = User::create(['name' => 'Luciano Carlos Arce Cajamarca']);
 
-$username = Username::make('Luciano Carlos Arce Cajamarca'); // larcec1
+$model->username; // larcec1
 ```
 
 Laravel Username Generator uses a convention for the creation of user names, takes the `first letter of the first name`,
@@ -204,35 +169,28 @@ However, Laravel Username Generator is so versatile that it can receive `only 1 
 even use the auxiliary surname parameter to pass the `two surnames separately`, in the following ways.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
+$model = User::create(['first_name' => 'Luis Andrés', 'last_name' => 'Arce Cárdenas']);
+$model = User::create(['name' => 'Luis Andrés Arce Cárdenas']);
+// This will generate the following username: larcec
 
+$model = User::create(['first_name' => 'Luis', 'last_name' => 'Arce']);
+$model = User::create(['name' => 'Luis Arce']);
+// This will generate the following username: larce
 
-/* Names and surnames separated */
-$username = Username::make('Luis Andrés', 'Arce Cárdenas'); // larcec
-
-/* One name and one surnames */
-$username = Username::make('Luis Arce'); // larce
-$username = Username::make('Luis', 'Arce'); // larce
-
-/* One name and two surnames */
-$username = Username::make('Luis Andrés', 'Arce'); // larce
-$username = Username::make('Luis', 'Arce Cárdenas'); // larcec
-$username = Username::make('Luis Arce Cárdenas'); // larcec
-
-/* Full name */
-$username = Username::make('Luis Andrés Arce Cárdenas'); // larcec
+$model = User::create(['first_name' => 'Luis', 'last_name' => 'Arce Cárdenas']);
+$model = User::create(['name' => 'Luis Arce Cárdenas']);
+// This will generate the following username: larcec
 ```
 
 Keep these examples in mind, since passing a value of more or more than two names or two surnames without following the
 convention may cause an exception
 
-Finally you can use the `email` driver, which will receive an email as the first and only parameter and take the user's
+Finally, you can use the `email` driver, which will receive an email as the first and only parameter and take the user's
 email and use it as a username.
 
 ```php
-use Luilliarcec\LaravelUsernameGenerator\Facades\Username;
-
-$username = Username::make('larcec@test.com'); // larcec
+$model = User::create(['email' => 'luilliarcec@gmail.com']);
+// This will generate the following username: luilliarcec
 ```
 
 ## Testing
