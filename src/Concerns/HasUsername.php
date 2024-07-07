@@ -139,20 +139,37 @@ trait HasUsername
     {
         return $this->getUsernameQuery()
             ->where($this->getUsernameColumn(), 'like', "{$username}%")
-            ->where($this->getUsernameColumn(), $this->getRegexSimilarityOperator(), "^{$username}[0-9]*$")
+            ->where(fn (Builder $query) => $this->getUsernameRegexSimilarityQuery($query, $username))
             ->pluck($this->getUsernameColumn());
     }
 
     /**
-     * Gets the similarity operator for the regex query.
+     * Gets the similarity condition for the regex query.
      *
-     * @return string
+     * @param  Builder  $query
+     * @param  string  $username
      */
-    protected function getRegexSimilarityOperator(): string
+    protected function getUsernameRegexSimilarityQuery(Builder $query, string $username): void
     {
-        return match ($this->getConnection()->getDriverName()) {
-            'mysql' => 'regexp',
-            'pgsql' => '~',
-        };
+        $column = $this->getUsernameColumn();
+
+        $driver = $this->getConnection()->getDriverName();
+
+        if ($driver === 'mysql') {
+            $query->where($column, 'regexp', "^{$username}[0-9]*$");
+
+            return;
+        }
+
+        if ($driver === 'pgsql') {
+            $query->where($column, '~', "^{$username}[0-9]*$");
+
+            return;
+        }
+
+        // Working on: sqlsrv
+        $query
+            ->where($column, 'like', $username)
+            ->orWhere($column, 'like', "{$username}[0-9]%");
     }
 }

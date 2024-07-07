@@ -43,6 +43,8 @@ it('adds a suffix to the username if a duplicate exists', function ($existing, $
             'larcec1445',
             'larcec2045',
             'larcecaz',
+            'larceca75',
+            'larcecaz85',
         ],
         'larcec2046'
     ],
