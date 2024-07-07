@@ -34,7 +34,7 @@ class Customer extends Model
      */
     protected function getName(): string
     {
-        return $this->firts_name;
+        return $this->first_name;
     }
 
     /**

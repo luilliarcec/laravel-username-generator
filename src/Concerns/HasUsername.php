@@ -5,6 +5,7 @@ namespace Luilliarcec\LaravelUsernameGenerator\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Drivers\Name;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
@@ -95,14 +96,19 @@ trait HasUsername
     protected function setSuffixUsername(string $username): string
     {
         $length = strlen($username);
-        $duplicated = $this->getDuplicateUsername($username);
+        $usernames = $this->getDuplicateOrSimilarUsernames($username);
 
-        if (is_null($duplicated)) {
+        if ($usernames->isEmpty()) {
             return $username;
         }
 
+        $lasted = $usernames
+            ->map(fn ($value) => intval(substr($value, $length)))
+            ->sortDesc()
+            ->first();
+
         $suffix = 1;
-        $suffix += intval(substr($duplicated->{$this->getUsernameColumn()}, $length));
+        $suffix += $lasted;
 
         return "{$username}{$suffix}";
     }
@@ -126,13 +132,14 @@ trait HasUsername
     /**
      * Search similar or repeated username.
      *
-     * @return Model|null
+     * @param  string  $username
+     *
+     * @return Collection
      */
-    protected function getDuplicateUsername(string $username): ?static
+    protected function getDuplicateOrSimilarUsernames(string $username): Collection
     {
         return $this->getUsernameQuery()
             ->where($this->getUsernameColumn(), 'regexp', "{$username}[0-9]*$")
-            ->orderByDesc($this->getUsernameColumn())
-            ->first([$this->getUsernameColumn()]);
+            ->pluck($this->getUsernameColumn());
     }
 }
