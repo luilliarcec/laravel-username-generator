@@ -156,13 +156,17 @@ trait HasUsername
         $driver = $this->getConnection()->getDriverName();
 
         if ($driver === 'mysql') {
-            $query->where($column, 'regexp', "^{$username}[0-9]*$");
+            $query
+                ->where($column, 'like', $username)
+                ->orWhere($column, 'regexp', "^{$username}[0-9]");
 
             return;
         }
 
         if ($driver === 'pgsql') {
-            $query->where($column, '~', "^{$username}[0-9]*$");
+            $query
+                ->where($column, 'like', $username)
+                ->orWhere($column, '~', "^{$username}[0-9]");
 
             return;
         }

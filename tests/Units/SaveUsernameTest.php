@@ -2,6 +2,9 @@
 
 namespace Tests\Units;
 
+use Illuminate\Support\Benchmark;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Tests\Models\Customer;
 use Tests\Models\User;
 
@@ -60,3 +63,27 @@ it('stores the generated username by first and last name separately by transform
     expect($customer->username)
         ->toBe('LARCEC');
 });
+
+it('performs a performance test on the query of similar users', function () {
+    ini_set('memory_limit', '-1');
+
+    $users = User::factory()->count(100_000)->make();
+
+    $users
+        ->chunk(500)
+        ->each(function (Collection $chunk) {
+            $records = $chunk
+                ->map(fn (User $user) => $user->toArray())
+                ->toArray();
+
+            DB::table('users')->insert($records);
+        });
+
+    $user = User::factory()->make(['name' => 'Luis Andrés Arce Cárdenas']);
+
+    Benchmark::dd(fn () => $user->getUsername(), 10);
+
+    // MySQL: 0.851ms
+    // SQLServer: 7.739ms
+    // PostgresSQL: 7.739ms
+})->skip();
