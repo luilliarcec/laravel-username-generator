@@ -1,10 +1,9 @@
 # Laravel Username Generator
 
-[![run-tests](https://github.com/luilliarcec/laravel-username-generator/actions/workflows/run-tests.yml/badge.svg)](https://github.com/luilliarcec/laravel-username-generator/actions/workflows/run-tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-username-generator.svg)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
-[![Quality Score](https://img.shields.io/scrutinizer/g/luilliarcec/laravel-username-generator)](https://scrutinizer-ci.com/g/luilliarcec/laravel-username-generator)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/luilliarcec/laravel-username-generator/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/luilliarcec/laravel-username-generator/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/luilliarcec/laravel-username-generator/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/luilliarcec/laravel-username-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-username-generator)](https://packagist.org/packages/luilliarcec/laravel-username-generator)
-[![GitHub license](https://img.shields.io/github/license/luilliarcec/laravel-username-generator)](https://github.com/luilliarcec/laravel-username-generator/blob/develop/LICENSE.md)
 
 <a href="https://www.buymeacoffee.com/luilliarcec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
