@@ -31,4 +31,15 @@ class TestCase extends Orchestra
             UsernameGeneratorServiceProvider::class,
         ];
     }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app): void
+    {
+        $app['config']->set('database.connections.sqlsrv.trust_server_certificate', true);
+    }
 }
