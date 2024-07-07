@@ -11,10 +11,10 @@ use Tests\database\factories\UserFactory;
 
 class User extends Authenticatable
 {
+    use HasFactory;
+    use HasUsername;
     use Notifiable;
     use SoftDeletes;
-    use HasUsername;
-    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -29,8 +29,6 @@ class User extends Authenticatable
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return UserFactory
      */
     protected static function newFactory(): UserFactory
     {
@@ -39,8 +37,6 @@ class User extends Authenticatable
 
     /**
      * The name/email or value with which the username will be generated.
-     *
-     * @return string
      */
     protected function getName(): string
     {
@@ -49,8 +45,6 @@ class User extends Authenticatable
 
     /**
      * The column where the username will be stored.
-     *
-     * @return string
      */
     protected function getUsernameColumn(): string
     {

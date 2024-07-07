@@ -4,6 +4,4 @@ namespace Luilliarcec\LaravelUsernameGenerator;
 
 use Illuminate\Support\ServiceProvider;
 
-class UsernameGeneratorServiceProvider extends ServiceProvider
-{
-}
+class UsernameGeneratorServiceProvider extends ServiceProvider {}

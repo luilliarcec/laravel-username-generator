@@ -13,22 +13,16 @@ trait HasUsername
 {
     /**
      * The column where the username will be stored.
-     *
-     * @return string
      */
-    protected abstract function getUsernameColumn(): string;
+    abstract protected function getUsernameColumn(): string;
 
     /**
      * The name/email or value with which the username will be generated.
-     *
-     * @return string
      */
-    protected abstract function getName(): string;
+    abstract protected function getName(): string;
 
     /**
      * Boot the has username trait for a model.
-     *
-     * @return void
      */
     public static function bootHasUsername(): void
     {
@@ -39,8 +33,6 @@ trait HasUsername
 
     /**
      * Driver to use to generate the username.
-     *
-     * @return DriverContract
      */
     protected function getUsernameDriver(): DriverContract
     {
@@ -49,8 +41,6 @@ trait HasUsername
 
     /**
      * If the "Name" driver is used and the record stores the last name, separately, the value can be returned here.
-     *
-     * @return string|null
      */
     protected function getLastName(): ?string
     {
@@ -74,10 +64,6 @@ trait HasUsername
 
     /**
      * Apply transformation code to the username, by default it is transformed to lower case.
-     *
-     * @param  string  $username
-     *
-     * @return string
      */
     protected function transformUsername(string $username): string
     {
@@ -86,11 +72,6 @@ trait HasUsername
 
     /**
      * If the username is duplicate, a numeric suffix is set.
-     *
-     * @param  string  $username
-     *
-     * @return string
-     *
      */
     protected function setSuffixUsername(string $username): string
     {
@@ -114,8 +95,6 @@ trait HasUsername
 
     /**
      * Configure the query and use soft delete, if present.
-     *
-     * @return Builder
      */
     protected function getUsernameQuery(): Builder
     {
@@ -130,10 +109,6 @@ trait HasUsername
 
     /**
      * Search similar or repeated username.
-     *
-     * @param  string  $username
-     *
-     * @return Collection
      */
     protected function getDuplicateOrSimilarUsernames(string $username): Collection
     {
@@ -145,9 +120,6 @@ trait HasUsername
 
     /**
      * Gets the similarity condition for the regex query.
-     *
-     * @param  Builder  $query
-     * @param  string  $username
      */
     protected function getUsernameRegexSimilarityQuery(Builder $query, string $username): void
     {

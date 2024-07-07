@@ -12,11 +12,10 @@ class Name implements DriverContract
      *
      * @param  string  $name  Firstname or Email
      * @param  string|null  $lastname  Lastname
-     * @return string
      *
      * @throws UsernameGeneratorException
      */
-    public function make(string $name, string $lastname = null): string
+    public function make(string $name, ?string $lastname = null): string
     {
         $this->validate($name);
 
@@ -36,9 +35,6 @@ class Name implements DriverContract
 
     /**
      * Get the first letter of the first name.
-     *
-     * @param  array  $firstname
-     * @return string
      */
     protected function getFirstLetterName(array $firstname): string
     {
@@ -47,9 +43,6 @@ class Name implements DriverContract
 
     /**
      * Get the first last name.
-     *
-     * @param  array  $lastname
-     * @return string
      */
     protected function getFirstLastname(array $lastname): string
     {
@@ -58,9 +51,6 @@ class Name implements DriverContract
 
     /**
      * Get the first letter of the second last name.
-     *
-     * @param  array  $lastname
-     * @return string
      */
     protected function getFirstLetterSecondLastname(array $lastname): string
     {
@@ -69,12 +59,8 @@ class Name implements DriverContract
 
     /**
      * Get the number of words that make up the name.
-     *
-     * @param  string  $name
-     * @param  string|null  $lastname
-     * @return int
      */
-    protected function getTotalWords(string $name, string $lastname = null): int
+    protected function getTotalWords(string $name, ?string $lastname = null): int
     {
         return $lastname ? count(explode(' ', "{$name} {$lastname}")) : count(explode(' ', $name));
     }
@@ -82,7 +68,6 @@ class Name implements DriverContract
     /**
      * Validate that the initial conditions of the name driver.
      *
-     * @param  string  $name
      *
      * @throws UsernameGeneratorException
      */
@@ -99,9 +84,6 @@ class Name implements DriverContract
 
     /**
      * Get valid name as array.
-     *
-     * @param  string  $name
-     * @return array
      */
     protected function getNameAsArray(string $name): array
     {
@@ -117,10 +99,6 @@ class Name implements DriverContract
 
     /**
      * Get valid lastname as array.
-     *
-     * @param  string  $name
-     * @param  string|null  $lastname
-     * @return array
      */
     protected function getLastnameAsArray(string $name, ?string $lastname): array
     {

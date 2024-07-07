@@ -11,10 +11,10 @@ use Tests\database\factories\CustomerFactory;
 
 class Customer extends Model
 {
-    use Notifiable;
-    use SoftDeletes;
     use HasFactory;
     use HasUsername;
+    use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,8 +29,6 @@ class Customer extends Model
 
     /**
      * The name/email or value with which the username will be generated.
-     *
-     * @return string
      */
     protected function getName(): string
     {
@@ -39,8 +37,6 @@ class Customer extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return CustomerFactory
      */
     protected static function newFactory(): CustomerFactory
     {
@@ -49,8 +45,6 @@ class Customer extends Model
 
     /**
      * If the "Name" driver is used and the record stores the last name, separately, the value can be returned here.
-     *
-     * @return string|null
      */
     protected function getLastName(): ?string
     {
@@ -59,8 +53,6 @@ class Customer extends Model
 
     /**
      * The column where the username will be stored.
-     *
-     * @return string
      */
     protected function getUsernameColumn(): string
     {
@@ -69,10 +61,6 @@ class Customer extends Model
 
     /**
      * Apply transformation code to the username, by default it is transformed to lower case.
-     *
-     * @param  string  $username
-     *
-     * @return string
      */
     protected function transformUsername(string $username): string
     {

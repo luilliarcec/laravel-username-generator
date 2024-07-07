@@ -12,11 +12,10 @@ class Email implements DriverContract
      *
      * @param  string  $name  Firstname or Email
      * @param  string|null  $lastname  Lastname
-     * @return string
      *
      * @throws UsernameGeneratorException
      */
-    public function make(string $name, string $lastname = null): string
+    public function make(string $name, ?string $lastname = null): string
     {
         if (! filter_var($name, FILTER_VALIDATE_EMAIL)) {
             throw new UsernameGeneratorException(
