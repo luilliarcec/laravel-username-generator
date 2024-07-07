@@ -3,7 +3,6 @@
 namespace Luilliarcec\LaravelUsernameGenerator\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
@@ -139,7 +138,21 @@ trait HasUsername
     protected function getDuplicateOrSimilarUsernames(string $username): Collection
     {
         return $this->getUsernameQuery()
-            ->where($this->getUsernameColumn(), 'regexp', "{$username}[0-9]*$")
+            ->where($this->getUsernameColumn(), 'like', "{$username}%")
+            ->where($this->getUsernameColumn(), $this->getRegexSimilarityOperator(), "^{$username}[0-9]*$")
             ->pluck($this->getUsernameColumn());
+    }
+
+    /**
+     * Gets the similarity operator for the regex query.
+     *
+     * @return string
+     */
+    protected function getRegexSimilarityOperator(): string
+    {
+        return match ($this->getConnection()->getDriverName()) {
+            'mysql' => 'regexp',
+            'pgsql' => '~',
+        };
     }
 }
