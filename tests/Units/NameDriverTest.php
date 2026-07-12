@@ -4,7 +4,7 @@ use Luilliarcec\LaravelUsernameGenerator\Drivers;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
 beforeEach(function () {
-    $this->driver = new Drivers\Name();
+    $this->driver = new Drivers\Name;
 });
 
 it('generate the username with a full name', function () {
@@ -52,4 +52,24 @@ it('throws an exception when the value passed is an email', function () {
 
 it('throws an exception when the value passed is null or empty', function () {
     $this->driver->make('');
-})->throws(UsernameGeneratorException::class, 'The name cannot be null');
+})->throws(UsernameGeneratorException::class, 'The name cannot be empty.');
+
+it('normalizes accents to ASCII', function () {
+    expect($this->driver->make('Ángela', 'Núñez Óscar'))
+        ->toBe('anunezo')
+        ->and($this->driver->make('José', 'Pérez Ñústez'))
+        ->toBe('jperezn')
+        ->and($this->driver->make('María José', 'García'))
+        ->toBe('mgarcia');
+});
+
+it('takes the first letter in a multibyte-safe way', function () {
+    // La inicial de un nombre acentuado no debe romperse (mb_substr, no str_split).
+    expect($this->driver->make('Úrsula', 'Íñigo Ángel'))
+        ->toBe('uinigoa');
+});
+
+it('strips characters outside [a-z0-9]', function () {
+    expect($this->driver->make("D'Angelo", "O'Brien Smith"))
+        ->toBe('dobriens');
+});

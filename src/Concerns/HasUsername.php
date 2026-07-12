@@ -3,12 +3,16 @@
 namespace Luilliarcec\LaravelUsernameGenerator\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Luilliarcec\LaravelUsernameGenerator\Contracts\DriverContract;
 use Luilliarcec\LaravelUsernameGenerator\Drivers\Name;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
+/**
+ * @mixin Model
+ */
 trait HasUsername
 {
     /**
@@ -36,11 +40,12 @@ trait HasUsername
      */
     protected function getUsernameDriver(): DriverContract
     {
-        return new Name();
+        return new Name;
     }
 
     /**
-     * If the "Name" driver is used and the record stores the last name, separately, the value can be returned here.
+     * If the "Name" driver is used and the record stores the last name,
+     * separately, the value can be returned here.
      */
     protected function getLastName(): ?string
     {
@@ -63,7 +68,8 @@ trait HasUsername
     }
 
     /**
-     * Apply transformation code to the username, by default it is transformed to lower case.
+     * Apply transformation code to the username, by default it is transformed
+     * to lower case.
      */
     protected function transformUsername(string $username): string
     {
@@ -83,14 +89,11 @@ trait HasUsername
         }
 
         $lasted = $usernames
-            ->map(fn ($value) => intval(substr($value, $length)))
+            ->map(fn ($value) => intval(substr((string) $value, $length)))
             ->sortDesc()
             ->first();
 
-        $suffix = 1;
-        $suffix += $lasted;
-
-        return "{$username}{$suffix}";
+        return "{$username}".($lasted + 1);
     }
 
     /**
@@ -99,9 +102,7 @@ trait HasUsername
     protected function getUsernameQuery(): Builder
     {
         if (in_array(SoftDeletes::class, class_uses($this))) {
-            return $this
-                ->query()
-                ->withTrashed();
+            return $this->query()->withTrashed();
         }
 
         return $this->query();
@@ -119,33 +120,36 @@ trait HasUsername
     }
 
     /**
-     * Gets the similarity condition for the regex query.
+     * Gets the similarity condition for the regex query (por motor de BD).
      */
     protected function getUsernameRegexSimilarityQuery(Builder $query, string $username): void
     {
         $column = $this->getUsernameColumn();
-
         $driver = $this->getConnection()->getDriverName();
 
-        if ($driver === 'mysql') {
-            $query
-                ->where($column, 'like', $username)
-                ->orWhere($column, 'regexp', "^{$username}[0-9]");
+        if ($driver === 'mysql' || $driver === 'mariadb') {
+            $query->where($column, 'like', $username)->orWhere($column, 'regexp', "^{$username}[0-9]");
 
             return;
         }
 
         if ($driver === 'pgsql') {
-            $query
-                ->where($column, 'like', $username)
-                ->orWhere($column, '~', "^{$username}[0-9]");
+            $query->where($column, 'like', $username)->orWhere($column, '~', "^{$username}[0-9]");
 
             return;
         }
 
-        // Working on: sqlsrv
-        $query
-            ->where($column, 'like', $username)
-            ->orWhere($column, 'like', "{$username}[0-9]%");
+        if ($driver === 'sqlite') {
+            // SQLite no trae REGEXP por defecto, pero GLOB sí soporta [0-9] y *.
+            // `glob` no está en el whitelist de operadores del query builder, así
+            // que se usa whereRaw (la columna es controlada y el valor va bindeado).
+            $query->where($column, 'like', $username)
+                ->orWhereRaw("{$column} GLOB ?", ["{$username}[0-9]*"]);
+
+            return;
+        }
+
+        // sqlsrv y otros: fallback con LIKE (patrón de rango).
+        $query->where($column, 'like', $username)->orWhere($column, 'like', "{$username}[0-9]%");
     }
 }
