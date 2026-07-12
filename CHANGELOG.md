@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-username-generator` will be documented in this file
 
+## 6.0.0 - unreleased
+
+- Support for **Laravel 10, 11, 12 and 13** (deps moved to `illuminate/database` + `illuminate/support`; dropped `spatie/laravel-package-tools`).
+- **ASCII normalization** of the generated username (strips accents/diacritics and characters outside `[a-z0-9]`).
+- **Multibyte-safe** first-letter extraction (`mb_substr` instead of `str_split`).
+- **SQLite** support for the duplicate/suffix lookup (`GLOB`).
+- Added driver tests for accents, multibyte initials and character stripping.
+
 ## 3.0.0 - 2022-04-18
 
 - Support only for the latest version of Laravel

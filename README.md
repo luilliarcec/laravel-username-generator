@@ -13,6 +13,21 @@ with Laravel.
 You can generate from the name of the user, taking into account that you do not use more than two names and two surnames
 in total. It can also be generated from the user's email.
 
+## What's new in v6.0
+
+- **Laravel 10, 11, 12 and 13** support (dependencies moved from `laravel/framework` to
+  `illuminate/database` + `illuminate/support`; dropped `spatie/laravel-package-tools`).
+- **ASCII normalization**: accents/diacritics are stripped from the generated username
+  (`Núñez` → `nunez`, `Ángela` → `a…`), and anything outside `[a-z0-9]` is removed
+  (`O'Brien` → `obrien`).
+- **Multibyte-safe initials**: the first letter of an accented name is no longer corrupted
+  (uses `mb_substr` instead of `str_split`).
+- **SQLite support** for the duplicate/suffix lookup (via `GLOB`), in addition to MySQL/MariaDB,
+  PostgreSQL and SQL Server.
+
+> Heads up: because accents are now stripped, usernames generated for accented names may differ
+> from v5. Review before upgrading if you rely on the previous output.
+
 ## Installation
 
 You can install the package via composer:
