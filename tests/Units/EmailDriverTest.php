@@ -4,7 +4,7 @@ use Luilliarcec\LaravelUsernameGenerator\Drivers;
 use Luilliarcec\LaravelUsernameGenerator\Exceptions\UsernameGeneratorException;
 
 beforeEach(function () {
-    $this->driver = new Drivers\Email();
+    $this->driver = new Drivers\Email;
 });
 
 it('generate the username with a email', function () {
